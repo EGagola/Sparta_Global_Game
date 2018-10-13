@@ -4,6 +4,9 @@
 body{
   display: flex;
 }
+p{
+  font-size: 8pt;
+}
 .full_page{
   width: 100%;
   border: 1px solid grey;
@@ -33,11 +36,11 @@ body{
   width: 60%;
   border: 1px solid red;
 }
-
 .dice{
   width: 100%;
   border: 1px solid green;
   height: 60px;
+  text-align: center;
 }
 .board{
   display: flex;
@@ -62,10 +65,63 @@ body{
   height: 100%;
   border: 1px solid black;
 }
+.start_p1{
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  top: 50px;
+  left: 10px;
+  position: relative;
+}
+.start_p2{
+  width: 10px;
+  height: 10px;
+  background-color: blue;
+  top: 40px;
+  left: 50px;
+  position: relative;
+}
 .board_top_mid{
   width: 300px;
   height: 100%;
   border: 1px solid blue;
+  /* flex-direction: row; */
+  display: flex;
+}
+.old_kent_road{
+  width:20%;
+  height: 100%;
+  border: 1px solid brown;
+  border-bottom-width: 15px;
+  padding: 2px;
+}
+.whitechapel_road{
+  width:20%;
+  height: 100%;
+  border: 1px solid brown;
+  border-bottom-width: 15px;
+  padding: 2px;
+}
+.angel_islington{
+  width:20%;
+  height: 100%;
+  border: 1px solid lightblue;
+  border-bottom-width: 15px;
+  padding: 2px;
+}
+.euston_road{
+  width:20%;
+  height: 100%;
+  border: 1px solid lightblue;
+  border-bottom-width: 15px;
+  padding: 2px;
+}
+.pentonville_road{
+  width:20%;
+  height: 100%;
+  border: 1px solid lightblue;
+  border-bottom-width: 15px;
+  padding: 2px;
 }
 .board_top_right{
   width: 100px;
@@ -83,15 +139,96 @@ body{
   height: 100%;
   border: 1px solid black;
 }
+.mayfair{
+  width: 100%;
+  height: 20%;
+  border: 1px solid purple;
+  border-right-width: 15px;
+  padding: 2px;
+
+}
+.park_lane{
+  width: 100%;
+  height: 20%;
+  border: 1px solid purple;
+  border-right-width: 15px;
+  padding: 2px;
+
+}
+.bond_street{
+  width: 100%;
+  height: 20%;
+  border: 1px solid green;
+  border-right-width: 15px;
+  padding: 2px;
+
+}
+.oxford_street{
+  width: 100%;
+  height: 20%;
+  border: 1px solid green;
+  border-right-width: 15px;
+  padding: 2px;
+
+}
+.regent_street{
+  width: 100%;
+  height: 20%;
+  border: 1px solid green;
+  border-right-width: 15px;
+  padding: 2px;
+
+}
 .board_mid_mid{
   width: 300px;
   height: 100%;
   border: 1px solid blue;
+  text-align: center;
 }
 .board_mid_right{
   width: 100px;
   height: 100%;
   border: 1px solid red;
+}
+.pall_mall{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orchid;
+  border-left-width: 15px;
+  padding: 2px;
+
+}
+.whitehall{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orchid;
+  border-left-width: 15px;
+  padding: 2px;
+
+}
+.northumberland_avenue{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orchid;
+  border-left-width: 15px;
+  padding: 2px;
+
+}
+.bow_street{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orange;
+  border-left-width: 15px;
+  padding: 2px;
+
+}
+.marlborough_street{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orange;
+  border-left-width: 15px;
+  padding: 2px;
+
 }
 .board_bottom_row{
   display: flex;
@@ -108,6 +245,47 @@ body{
   width: 300px;
   height: 100%;
   border: 1px solid blue;
+  display: flex;
+}
+.strand{
+  width: 20%;
+  height: 100%;
+  border: 1px solid red;
+  border-top-width: 15px;
+  padding: 2px;
+
+}
+.fleet_street{
+  width: 20%;
+  height: 100%;
+  border: 1px solid red;
+  border-top-width: 15px;
+  padding: 2px;
+
+}
+.trafalgar_square{
+  width: 20%;
+  height: 100%;
+  border: 1px solid red;
+  border-top-width: 15px;
+  padding: 2px;
+
+}
+.leicester_square{
+  width: 20%;
+  height: 100%;
+  border: 1px solid yellow;
+  border-top-width: 15px;
+  padding: 2px;
+
+}
+.picadilly{
+  width: 20%;
+  height: 100%;
+  border: 1px solid yellow;
+  border-top-width: 15px;
+  padding: 2px;
+
 }
 .board_bottom_right{
   width: 100px;
@@ -124,4 +302,10 @@ body{
   display: flex;
   width: 20%;
   border: 1px solid blue;
+}
+.player1{
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  position: absolute;
 }
