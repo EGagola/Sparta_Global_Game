@@ -77,7 +77,7 @@ var positionData = function(name,id,value,owner,cost,payout,pieces) {
 var posDataArray = [];
 var GO = new positionData("Go","go",0,0,0,0,3);
 posDataArray.push(GO);
-var OKR = new positionData("Old Kent Road","old_kent_road"1,0,10,5,0);
+var OKR = new positionData("Old Kent Road","old_kent_road",1,0,10,5,0);
 posDataArray.push(OKR);
 var WCR = new positionData("Whitechapel Road","whitechapel_road",2,0,15,5,0);
 posDataArray.push(WCR);
@@ -128,12 +128,15 @@ posDataArray.push(M);
 function makeToken(number) {
   var propertyArray = [];
   if (turnCount % 2 == 1) {
-    var newToken = document.createElement('img');
-    newToken.setAttribute("src","http://www.stickpng.com/assets/images/5930074c3919fe0ee3614da0.png");
-    newToken.setAttribute("width",100);
-    newToken.setAttribute("height",100);
-    newToken.setAttribute("alt","Doggo");
-    document.posDataArray[number].pieces += 1;
+    // var newToken = document.createElement('img');
+    // newToken.setAttribute("src","http://www.stickpng.com/assets/images/5930074c3919fe0ee3614da0.png");
+    // newToken.setAttribute("width",100);
+    // newToken.setAttribute("height",100);
+    // newToken.setAttribute("alt","Doggo");
+    console.log(number);
+console.log(document.posDataArray[number].pieces);
+var newNum = num;
+  document.posDataArray[number].pieces += 1;
   } else if (turnCount % 2 == 0) {
     var newToken = document.createElement('img');
   newToken.setAttribute("src","http://www.stickpng.com/assets/thumbs/5930075f3919fe0ee3614da2.png");
