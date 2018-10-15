@@ -4,6 +4,9 @@
 body{
   display: flex;
 }
+h3 {
+  width: 100%;
+}
 p{
   font-size: 8pt;
 }
@@ -13,6 +16,9 @@ p{
   height: 800px;
 }
 .top_bar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 50px;
   border: 1px solid black;
@@ -27,8 +33,11 @@ p{
 }
 .player_1_col{
   justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
   width: 20%;
   border: 1px solid orchid;
+  text-align: center;
 }
 .game_col{
   display: flex;
@@ -88,35 +97,35 @@ p{
   /* flex-direction: row; */
   display: flex;
 }
-.old_kent_road{
+#old_kent_road{
   width:20%;
   height: 100%;
   border: 1px solid brown;
   border-bottom-width: 15px;
   padding: 2px;
 }
-.whitechapel_road{
+#whitechapel_road{
   width:20%;
   height: 100%;
   border: 1px solid brown;
   border-bottom-width: 15px;
   padding: 2px;
 }
-.angel_islington{
+#angel_islington{
   width:20%;
   height: 100%;
   border: 1px solid lightblue;
   border-bottom-width: 15px;
   padding: 2px;
 }
-.euston_road{
+#euston_road{
   width:20%;
   height: 100%;
   border: 1px solid lightblue;
   border-bottom-width: 15px;
   padding: 2px;
 }
-.pentonville_road{
+#pentonville_road{
   width:20%;
   height: 100%;
   border: 1px solid lightblue;
@@ -139,7 +148,7 @@ p{
   height: 100%;
   border: 1px solid black;
 }
-.mayfair{
+#mayfair{
   width: 100%;
   height: 20%;
   border: 1px solid purple;
@@ -147,7 +156,7 @@ p{
   padding: 2px;
 
 }
-.park_lane{
+#park_lane{
   width: 100%;
   height: 20%;
   border: 1px solid purple;
@@ -155,7 +164,7 @@ p{
   padding: 2px;
 
 }
-.bond_street{
+#bond_street{
   width: 100%;
   height: 20%;
   border: 1px solid green;
@@ -163,7 +172,7 @@ p{
   padding: 2px;
 
 }
-.oxford_street{
+#oxford_street{
   width: 100%;
   height: 20%;
   border: 1px solid green;
@@ -171,7 +180,7 @@ p{
   padding: 2px;
 
 }
-.regent_street{
+#regent_street{
   width: 100%;
   height: 20%;
   border: 1px solid green;
@@ -190,7 +199,7 @@ p{
   height: 100%;
   border: 1px solid red;
 }
-.pall_mall{
+#pall_mall{
   width: 100%;
   height: 20%;
   border: 1px solid orchid;
@@ -198,7 +207,7 @@ p{
   padding: 2px;
 
 }
-.whitehall{
+#whitehall{
   width: 100%;
   height: 20%;
   border: 1px solid orchid;
@@ -206,7 +215,7 @@ p{
   padding: 2px;
 
 }
-.northumberland_avenue{
+#northumberland_avenue{
   width: 100%;
   height: 20%;
   border: 1px solid orchid;
@@ -214,7 +223,7 @@ p{
   padding: 2px;
 
 }
-.bow_street{
+#bow_street{
   width: 100%;
   height: 20%;
   border: 1px solid orange;
@@ -222,7 +231,7 @@ p{
   padding: 2px;
 
 }
-.marlborough_street{
+#marlborough_street{
   width: 100%;
   height: 20%;
   border: 1px solid orange;
@@ -247,7 +256,7 @@ p{
   border: 1px solid blue;
   display: flex;
 }
-.strand{
+#strand{
   width: 20%;
   height: 100%;
   border: 1px solid red;
@@ -255,7 +264,7 @@ p{
   padding: 2px;
 
 }
-.fleet_street{
+#fleet_street{
   width: 20%;
   height: 100%;
   border: 1px solid red;
@@ -263,7 +272,7 @@ p{
   padding: 2px;
 
 }
-.trafalgar_square{
+#trafalgar_square{
   width: 20%;
   height: 100%;
   border: 1px solid red;
@@ -271,7 +280,7 @@ p{
   padding: 2px;
 
 }
-.leicester_square{
+#leicester_square{
   width: 20%;
   height: 100%;
   border: 1px solid yellow;
@@ -279,7 +288,7 @@ p{
   padding: 2px;
 
 }
-.picadilly{
+#picadilly{
   width: 20%;
   height: 100%;
   border: 1px solid yellow;
@@ -300,8 +309,10 @@ p{
 }
 .player_2_col{
   display: flex;
+  flex-direction: column;
   width: 20%;
   border: 1px solid blue;
+  text-align: center;
 }
 .player1{
   width: 20px;
