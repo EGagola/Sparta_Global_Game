@@ -1,70 +1,304 @@
 var diceNum;
+var p1Pos = 0;
+var p2Pos = 0;
 var turnCount = 0;
-var red_Piece_Position = 0; //initial position of red piece
-var blue_Piece_Position = 0; //Initial position of blue piece
 document.addEventListener('DOMContentLoaded', function() {
+  makeTokens(0);
 var start = document.getElementById('startButton');
 start.addEventListener("click",function() { //On click of "Roll the dice!" this function happens
   diceNum = Math.ceil(Math.random()*6); //Random number 1-6
   document.getElementById('rollNum').innerHTML = diceNum; //Displays roll on screen
-  console.log("Dice rolled: " + diceNum);
   turnCount += 1; //Adds 1 to turn count
-  if (turnCount % 2 == 0) { //If even turn count then it is player 2's turn
+  console.log("turn " +turnCount);
+  console.log("DiceNum now equals:" + diceNum);
+  if (turnCount %2 == 1) {
+    posDataArray[(p1Pos)].pieces -=1;
+    p1Pos += diceNum;
+
+  }else if (turnCount %2 ==0) {
+    posDataArray[(p2Pos)].pieces -=2;
+        p2Pos += diceNum;
+  }
+  if (turnCount % 2 == 1) { //If even turn count then it is player 2's turn
     console.log("Player 1 turn");
     document.querySelector(".player_1_col").style.backgroundColor = "lightblue";
     document.querySelector(".player_2_col").style.backgroundColor = "white";
     document.getElementById('player_turn').innerHTML = "1";
-  } else if (turnCount % 2 == 1) { //If turn count odd then it's player 1's turn
+
+    switch (p1Pos % 24) {
+      case 1:
+          console.log("P1 move to old kent road");
+          changePieceValue(1);
+          makeTokens(1);
+          deleteTokens(1);
+        break;
+      case 2:
+          console.log(" P1 move to whitechapel_road");
+          changePieceValue(2);
+          makeTokens(2);
+          deleteTokens(2);
+
+        break;
+      case 3:
+          console.log("P1move to angel");
+          changePieceValue(3);
+          makeTokens(3);
+          deleteTokens(3);
+        break;
+      case 4:
+          console.log("P1move to euston");
+          changePieceValue(4);
+          makeTokens(4);
+          deleteTokens(4);
+        break;
+      case 5:
+          console.log("P1move to pentonville");
+          changePieceValue(5);
+          makeTokens(5);
+          deleteTokens(5);
+        break;
+      case 6:
+          console.log("P1move to top right");
+          changePieceValue(6);
+          makeTokens(6);
+          deleteTokens(6);
+        break;
+      case 7:
+          console.log("P1move to pall mall");
+          changePieceValue(7);
+          makeTokens(7);
+        break;
+      case 8:
+          console.log("P1 move to whitehall");
+          changePieceValue(8);
+          makeTokens(8);
+        break;
+      case 9:
+          console.log("P1 move to northumberland_avenue");
+          changePieceValue(9);
+          makeTokens(9);
+        break;
+      case 10:
+          console.log("P1move to bow street");
+          changePieceValue(10);
+          makeTokens(10);
+        break;
+      case 11:
+          console.log("P1move to marlborough street");
+          changePieceValue(11);
+          makeTokens(11);
+        break;
+      case 12:
+          console.log("P1move to bottom right");
+          changePieceValue(12);
+          makeTokens(12);
+        break;
+      case 13:
+          console.log("P1move to strand");
+          changePieceValue(13);
+          makeTokens(13);
+        break;
+      case 14:
+          console.log("P1move to fleet street");
+          changePieceValue(14);
+          makeTokens(14);
+        break;
+      case 15:
+          console.log("P1move to trafalgar_square");
+          changePieceValue(15);
+          makeTokens(15);
+        break;
+      case 16:
+          console.log("P1move to leicester_square");
+          changePieceValue(16);
+          makeTokens(16);
+        break;
+      case 17:
+          console.log("P1move to picadilly");
+          changePieceValue(17);
+          makeTokens(17);
+        break;
+      case 18:
+          console.log("P1move to bottom left");
+          changePieceValue(18);
+          makeTokens(18);
+        break;
+      case 19:
+          console.log("P1 move to regent_street");
+          changePieceValue(19);
+          makeTokens(19);
+        break;
+      case 20:
+          console.log("P1move to oxford street");
+          changePieceValue(20);
+          makeTokens(20);
+        break;
+      case 21:
+          console.log("P1move to bond street");
+          changePieceValue(21);
+          makeTokens(21);
+        break;
+      case 22:
+          console.log("P1 move to park lane");
+          changePieceValue(22);
+          makeTokens(22);
+        break;
+      case 23:
+          console.log("P1 move to mayfair");
+          changePieceValue(23);
+          makeTokens(23);
+        break;
+      case 24:
+          console.log("P1 move to go");
+          changePieceValue(24);
+          makeTokens(24);
+        break;
+      default:
+      console.log("Don't move");
+    }
+  } else if (turnCount % 2 == 0) { //If turn count odd then it's player 1's turn
     console.log("Player 2 turn");
     document.querySelector(".player_1_col").style.backgroundColor = "white";
     document.querySelector(".player_2_col").style.backgroundColor = "lightblue";
     document.getElementById('player_turn').innerHTML = "2";
 
+    switch (p2Pos % 24) {
+      case 1:
+          console.log("P2 move to old kent road");
+          changePieceValue(1);
+          // deleteTokens(1);
+          makeTokens(1);
+        break;
+      case 2:
+          console.log(" P2 move to whitechapel_road");
+          changePieceValue(2);
+          makeTokens(2);
+        break;
+      case 3:
+          console.log("P2move to angel");
+          changePieceValue(3);
+          makeTokens(3);
+        break;
+      case 4:
+          console.log("P2move to euston");
+          changePieceValue(4);
+          makeTokens(4);
+        break;
+      case 5:
+          console.log("P2move to pentonville");
+          changePieceValue(5);
+          makeTokens(5);
+        break;
+      case 6:
+          console.log("P2move to top right");
+          changePieceValue(6);
+          makeTokens(6);
+        break;
+      case 7:
+          console.log("P2move to pall mall");
+          changePieceValue(7);
+          makeTokens(7);
+        break;
+      case 8:
+          console.log("P2move to whitehall");
+          changePieceValue(8);
+          makeTokens(8);
+        break;
+      case 9:
+          console.log("P2move to northumberland_avenue");
+          changePieceValue(9);
+          makeTokens(9);
+        break;
+      case 10:
+          console.log("P2move to bow street");
+          changePieceValue(10);
+          makeTokens(10);
+        break;
+      case 11:P1
+          console.log("P2move to marlborough street");
+          changePieceValue(11);
+          makeTokens(11);
+        break;
+      case 12:
+          console.log("P2move to bottom right");
+          changePieceValue(12);
+          makeTokens(12);
+        break;
+      case 13:
+          console.log("P2move to strand");
+          changePieceValue(13);
+          makeTokens(13);
+        break;
+      case 14:
+          console.log("P2move to fleet street");
+          changePieceValue(14);
+          makeTokens(14);
+        break;
+      case 15:
+          console.log("P2move to trafalgar_square");
+          changePieceValue(15);
+          makeTokens(15);
+        break;
+      case 16:
+          console.log("P2move to leicester_square");
+          changePieceValue(16);
+          makeTokens(16);
+        break;
+      case 17:
+          console.log("P2move to picadilly");
+          changePieceValue(17);
+          makeTokens(17);
+        break;
+      case 18:
+          console.log("P2move to bottom left");
+          changePieceValue(18);
+          makeTokens(18);
+        break;
+      case 19:
+          console.log("P2 move to regent_street");
+          changePieceValue(19);
+          makeTokens(19);
+        break;
+      case 20:
+          console.log("P2move to oxford street");
+          changePieceValue(20);
+          makeTokens(20);
+        break;
+      case 21:
+          console.log("P2move to bond street");
+          changePieceValue(21);
+          makeTokens(21);
+        break;
+      case 22:
+          console.log("P2 move to park lane");
+          changePieceValue(22);
+          makeTokens(22);
+        break;
+      case 23:
+          console.log("P2 move to mayfair");
+          changePieceValue(23);
+          makeTokens(23);
+        break;
+      case 24:
+          console.log("P2 move to go");
+          changePieceValue(24);
+          makeTokens(24);
+        break;
+      default:
+      console.log("Don't move");
+    }
   }else {
     console.log("Argghhhhh");
   }
-  console.log(turnCount);
-  console.log("DiceNum now equals:" + diceNum);
-  //Switch to determine action upon each posible dice roll.
-  switch (diceNum) {
-    case 1:
-        console.log("move to old kent road");
-        makeToken(1);
-      break;
-    case 2:
-        console.log("move to whitechapel_road");
-        makeToken(2);
-      break;
-    case 3:
-        console.log("move to angel");
-        makeToken(3);
-      break;
-    case 4:
-        console.log("move to euston");
-        makeToken(4);
-      break;
-    case 5:
-        console.log("move to pentonville");
-        makeToken(5);
-      break;
-    case 6:
-        console.log("move to top right");
-        makeToken(6);
-      break;
-    default:
-    console.log("Don't move");
-  }
+
+  console.log(p1Pos + " is the current position of P1");
+  console.log(p2Pos + " is the current position of P2");
+
+  console.log(posDataArray[p1Pos].name + " is the current position of player one");
+  console.log(posDataArray[p2Pos].name + " is the current position of player two");
+  console.log("DiceNum is : " + diceNum );
 })
 })
-
-var positionArray = [];
-for (var i = 0; i < 24; i++) {
-  positionArray[i] = i;
-}
-for (var i = 0; i < positionArray.length; i++) {
-}
-console.log(positionArray);
-
 var positionData = function(name,id,value,owner,cost,payout,pieces) {
   this.name = name;
   this.id = id;
@@ -125,24 +359,44 @@ var M = new positionData("Mayfair","mayfair",23,0,75,50,0);
 posDataArray.push(M);
 
 
-function makeToken(number) {
-  var propertyArray = [];
+function changePieceValue(number) {
   if (turnCount % 2 == 1) {
-    // var newToken = document.createElement('img');
-    // newToken.setAttribute("src","http://www.stickpng.com/assets/images/5930074c3919fe0ee3614da0.png");
-    // newToken.setAttribute("width",100);
-    // newToken.setAttribute("height",100);
-    // newToken.setAttribute("alt","Doggo");
-    console.log(number);
-console.log(document.posDataArray[number].pieces);
-var newNum = num;
-  document.posDataArray[number].pieces += 1;
+    posDataArray[number].pieces += 1;
+    posDataArray[(number-diceNum)] -= 1;
+    console.log("P1 pieces " + posDataArray[number].pieces);
   } else if (turnCount % 2 == 0) {
+
     var newToken = document.createElement('img');
-  newToken.setAttribute("src","http://www.stickpng.com/assets/thumbs/5930075f3919fe0ee3614da2.png");
-  newToken.setAttribute("width",100);
-  newToken.setAttribute("height",100);
-  newToken.setAttribute("alt","Boat");
-  document.posDataArray[number].pieces += 2;
+    posDataArray[number].pieces += 2;
+    posDataArray[(number-diceNum)] -= 2;
   }
 }
+function makeTokens(number) {
+  if (posDataArray[number].pieces == 1) {
+    var element = document.getElementsByClassName("doggoimg hidden");
+    element[number-1].classList.remove("hidden");
+    console.log(posDataArray[number].name);
+  }else if (posDataArray[number].pieces == 2) {
+    var element = document.getElementsByClassName("boatimg hidden");
+      element[number-1].classList.remove("hidden");
+      console.log(posDataArray[number].name);
+
+  }else if (posDataArray[number].pieces == 3 && posDataArray[number.pieces>0]) {
+    var element1 = document.getElementsByClassName("doggoimg");
+    element1[number-1].classList.remove("hidden");
+    var element2 = document.getElementsByClassName("boatimg");
+    element2[number-1].classList.remove("hidden");
+    console.log(posDataArray[number].name);
+
+  }
+}
+var prevPos1 = p1Pos - diceNum;
+var prevPos2 = p2Pos - diceNum;
+function deleteTokens(number) {
+    // if (posDataArray[prevPos1].pieces != 1 || posDataArray[prevPos1].pieces != 2 || posDataArray[prevPos1].pieces != 3) {
+    //   var elem = getElementsByClassName("doggimg")
+    //   elem[prevPos1].classList.add("hidden");
+    //   var elem = this.querySelector("boatimg")
+    //   elem[prevPos1].classList.add("hidden");
+    // }prevPos1
+};
