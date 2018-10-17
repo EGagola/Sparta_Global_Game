@@ -28,9 +28,9 @@ start.addEventListener("click",function() { //On click of "Roll the dice!" this 
   }
   if (turnCount % 2 == 1) { //If odd turn count then it is player 1's turn
     console.log("Player 1 turn");
-    document.querySelector(".player_1_col").style.backgroundColor = "lightblue";
-    document.querySelector(".player_2_col").style.backgroundColor = "white";
-    document.getElementById('player_turn').innerHTML = "1";
+    document.querySelector(".player_1_col").style.backgroundColor = "white";
+    document.querySelector(".player_2_col").style.backgroundColor = "lightblue";
+    document.getElementById('player_turn').innerHTML = "2";
 
     switch (p1Pos % 24) {
       case 1:
@@ -193,9 +193,9 @@ start.addEventListener("click",function() { //On click of "Roll the dice!" this 
     }
   } else if (turnCount % 2 == 0) { //If turn count even then it's player 1's turn
     console.log("Player 2 turn");
-    document.querySelector(".player_1_col").style.backgroundColor = "white";
-    document.querySelector(".player_2_col").style.backgroundColor = "lightblue";
-    document.getElementById('player_turn').innerHTML = "2";
+    document.querySelector(".player_1_col").style.backgroundColor = "rgba(255,0,0,0.4)";
+    document.querySelector(".player_2_col").style.backgroundColor = "white";
+    document.getElementById('player_turn').innerHTML = "1";
 
     switch (p2Pos % 24) {
       case 1:

@@ -55,12 +55,14 @@ img {
   flex-direction: column;
   width: 60%;
   border: 1px solid red;
+  background-color: navajowhite;
 }
 .dice{
   width: 100%;
   border: 1px solid green;
   height: 60px;
   text-align: center;
+  background-color: white;
 }
 .board{
   display: flex;
@@ -73,6 +75,7 @@ img {
     /* justify-content: center; */
     margin-top: 10px;
     margin-bottom: 10px;
+    background-color: white;
  }
 
 .board_top_row{
@@ -318,6 +321,7 @@ img {
   border: 1px solid blue;
   align-self: flex-end;
   justify-content: center;
+  background-color: white;
 }
 .bank_area button {
   align-self: center;
