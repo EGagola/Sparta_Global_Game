@@ -2,24 +2,31 @@ var diceNum;
 var p1Pos = 0;
 var p2Pos = 0;
 var turnCount = 0;
+var p1Dollar = 1000;
+var p1TurnCount = 0;
+var p2TurnCount = 0;
+document.getElementById('player1_money').innerHTML= p1Dollar;
+var p2Dollar = 1000;
+document.getElementById('player2_money').innerHTML = p2Dollar;
 document.addEventListener('DOMContentLoaded', function() {
   makeTokens(0);
 var start = document.getElementById('startButton');
 start.addEventListener("click",function() { //On click of "Roll the dice!" this function happens
   diceNum = Math.ceil(Math.random()*6); //Random number 1-6
   document.getElementById('rollNum').innerHTML = diceNum; //Displays roll on screen
-  turnCount += 1; //Adds 1 to turn count
+  turnCount +=1; //Adds 1 to turn count
   console.log("turn " +turnCount);
   console.log("DiceNum now equals:" + diceNum);
   if (turnCount %2 == 1) {
-    posDataArray[(p1Pos)].pieces -=1;
     p1Pos += diceNum;
-
+    p1TurnCount += 1;
+    console.log(p1TurnCount + "Player 1 Turn count");
   }else if (turnCount %2 ==0) {
-    posDataArray[(p2Pos)].pieces -=2;
         p2Pos += diceNum;
+        p2TurnCount +=1;
+        console.log(p2TurnCount + "Player 2 turn count");
   }
-  if (turnCount % 2 == 1) { //If even turn count then it is player 2's turn
+  if (turnCount % 2 == 1) { //If odd turn count then it is player 1's turn
     console.log("Player 1 turn");
     document.querySelector(".player_1_col").style.backgroundColor = "lightblue";
     document.querySelector(".player_2_col").style.backgroundColor = "white";
@@ -29,39 +36,38 @@ start.addEventListener("click",function() { //On click of "Roll the dice!" this 
       case 1:
           console.log("P1 move to old kent road");
           changePieceValue(1);
+          deleteTokens();
           makeTokens(1);
-          deleteTokens(1);
         break;
       case 2:
           console.log(" P1 move to whitechapel_road");
           changePieceValue(2);
+          deleteTokens();
           makeTokens(2);
-          deleteTokens(2);
-
         break;
       case 3:
           console.log("P1move to angel");
           changePieceValue(3);
+          deleteTokens();
           makeTokens(3);
-          deleteTokens(3);
         break;
       case 4:
           console.log("P1move to euston");
           changePieceValue(4);
+          deleteTokens();
           makeTokens(4);
-          deleteTokens(4);
         break;
       case 5:
           console.log("P1move to pentonville");
           changePieceValue(5);
+          deleteTokens();
           makeTokens(5);
-          deleteTokens(5);
         break;
       case 6:
           console.log("P1move to top right");
           changePieceValue(6);
+          deleteTokens();
           makeTokens(6);
-          deleteTokens(6);
         break;
       case 7:
           console.log("P1move to pall mall");
@@ -148,15 +154,44 @@ start.addEventListener("click",function() { //On click of "Roll the dice!" this 
           changePieceValue(23);
           makeTokens(23);
         break;
-      case 24:
+      case 0:
           console.log("P1 move to go");
-          changePieceValue(24);
-          makeTokens(24);
+          changePieceValue(0);
+          makeTokens(0);
         break;
       default:
       console.log("Don't move");
     }
-  } else if (turnCount % 2 == 0) { //If turn count odd then it's player 1's turn
+    if (posDataArray[p1Pos%24].owner == 0) {
+      if (p1Dollar >= posDataArray[p1Pos%24].cost) {
+        var P1ownerRequest = prompt("Would you like to buy this property?")
+          if (P1ownerRequest == "Yes") {
+            console.log("You now own " + posDataArray[p1Pos%24].name);
+            posDataArray[p1Pos].owner += 1;
+            var propColorP1 = document.getElementsByClassName("property");
+            propColorP1[(p1Pos%24)].classList.add("p1Own");
+            p1Dollar -= posDataArray[p1Pos%24].cost;
+            document.getElementById('player1_money').innerHTML= p1Dollar;
+          }else if (P1ownerRequest == "No") {
+            console.log("Property not bought");
+          }else {
+            console.log("Invalid input, you don't deserve a property");
+          }
+      }else {
+        alert("You cannot afford this property")
+      }
+    }else if (posDataArray[p1Pos%24].owner == 2) {
+      alert("You owe " + posDataArray[p1Pos%24].payout + " Pounds")
+      p1Dollar -= posDataArray[p1Pos%24].payout;
+      p2Dollar += posDataArray[p1Pos%24].payout;
+      document.getElementById('player1_money').innerHTML= p1Dollar;
+      document.getElementById('player2_money').innerHTML= p2Dollar;
+    }else if (posDataArray[p1Pos%24].owner == 3) {
+      console.log("You just won £50!");
+      p1Dollar += 50;
+      document.getElementById('player1_money').innerHTML= p1Dollar;
+    }
+  } else if (turnCount % 2 == 0) { //If turn count even then it's player 1's turn
     console.log("Player 2 turn");
     document.querySelector(".player_1_col").style.backgroundColor = "white";
     document.querySelector(".player_2_col").style.backgroundColor = "lightblue";
@@ -214,7 +249,7 @@ start.addEventListener("click",function() { //On click of "Roll the dice!" this 
           changePieceValue(10);
           makeTokens(10);
         break;
-      case 11:P1
+      case 11:
           console.log("P2move to marlborough street");
           changePieceValue(11);
           makeTokens(11);
@@ -279,21 +314,48 @@ start.addEventListener("click",function() { //On click of "Roll the dice!" this 
           changePieceValue(23);
           makeTokens(23);
         break;
-      case 24:
+      case 0:
           console.log("P2 move to go");
-          changePieceValue(24);
-          makeTokens(24);
+          changePieceValue(0);
+          makeTokens(0);
         break;
       default:
       console.log("Don't move");
     }
+    if (posDataArray[p2Pos%24].owner == 0) {
+      if (p2Dollar >= posDataArray[p2Pos%24].cost) {
+        var P2ownerRequest = prompt("Would you like to buy this property?")
+        if (P2ownerRequest == "Yes") {
+          console.log("You now own " + posDataArray[p2Pos%24].name);
+          posDataArray[p2Pos].owner += 2;
+          var propColorP2 = document.getElementsByClassName("property");
+          propColorP2[(p2Pos%24)].classList.add("p2Own");
+          p2Dollar -= posDataArray[p2Pos%24].cost;
+          document.getElementById('player2_money').innerHTML = p2Dollar;
+        }else if (P2ownerRequest == "No") {
+          console.log("Property not bought");
+        }else {
+        console.log("Invalid input, you don't deserve a property");
+      }
+    }else {
+      alert("You cannot afford this property")
+    }
+  }else if (posDataArray[p2Pos%24].owner == 1) {
+      alert("You owe " + posDataArray[p2Pos%24].payout + " Pounds")
+      p2Dollar -= posDataArray[p2Pos%24].payout;
+      p1Dollar += posDataArray[p2Pos%24].payout;
+      document.getElementById('player2_money').innerHTML = p2Dollar;
+      document.getElementById('player1_money').innerHTML= p1Dollar;
+  }else if (posDataArray[p1Pos%24].owner == 3) {
+    console.log("You just won £50!");
+    p2Dollar += 50;
+    document.getElementById('player2_money').innerHTML= p2Dollar;
+  }
   }else {
     console.log("Argghhhhh");
   }
-
   console.log(p1Pos + " is the current position of P1");
   console.log(p2Pos + " is the current position of P2");
-
   console.log(posDataArray[p1Pos].name + " is the current position of player one");
   console.log(posDataArray[p2Pos].name + " is the current position of player two");
   console.log("DiceNum is : " + diceNum );
@@ -321,7 +383,7 @@ var ER = new positionData("Euston Road","euston_road",4,0,20,10,0);
 posDataArray.push(ER);
 var PR = new positionData("Pentonville Road","pentonville_road",5,0,25,15,0);
 posDataArray.push(PR);
-var TR = new positionData("Top Right","top_right",6,0,0,0,0);
+var TR = new positionData("Top Right","top_right",6,3,0,0,0);
 posDataArray.push(TR);
 var PM = new positionData("Pall Mall","pall_mall",7,0,30,20,0);
 posDataArray.push(PM);
@@ -333,7 +395,7 @@ var BS1 = new positionData("Bow Street","bow_street",10,0,35,20,0);
 posDataArray.push(BS1);
 var MS = new positionData("Marlborough Street","marlborough_street",11,0,40,20,0);
 posDataArray.push(MS);
-var BR = new positionData("Bottom Right","bottom_right",12,0,0,0,0);
+var BR = new positionData("Bottom Right","bottom_right",12,3,0,0,0);
 posDataArray.push(BR);
 var S = new positionData("Strand","strand",13,0,50,25,0);
 posDataArray.push(S);
@@ -345,7 +407,7 @@ var LS = new positionData("Leicester Square","leicester_square",16,0,55,30,0);
 posDataArray.push(LS);
 var P = new positionData("Picadilly","picadilly",17,0,60,35,0);
 posDataArray.push(P);
-var BL = new positionData("Bottom Left","bottom_left",18,0,0,0,0);
+var BL = new positionData("Bottom Left","bottom_left",18,3,0,0,0);
 posDataArray.push(BR);
 var RS = new positionData("Regent Street","regent_street",19,0,65,40,0);
 posDataArray.push(RS);
@@ -358,45 +420,64 @@ posDataArray.push(PL);
 var M = new positionData("Mayfair","mayfair",23,0,75,50,0);
 posDataArray.push(M);
 
-
 function changePieceValue(number) {
   if (turnCount % 2 == 1) {
     posDataArray[number].pieces += 1;
-    posDataArray[(number-diceNum)] -= 1;
+    // posDataArray[(number-diceNum)] -= 1;
     console.log("P1 pieces " + posDataArray[number].pieces);
   } else if (turnCount % 2 == 0) {
-
     var newToken = document.createElement('img');
     posDataArray[number].pieces += 2;
-    posDataArray[(number-diceNum)] -= 2;
+    // posDataArray[(number-diceNum)] -= 2;
+    console.log("P2 pieces " + posDataArray[number].pieces);
   }
 }
 function makeTokens(number) {
-  if (posDataArray[number].pieces == 1) {
-    var element = document.getElementsByClassName("doggoimg hidden");
-    element[number-1].classList.remove("hidden");
-    console.log(posDataArray[number].name);
-  }else if (posDataArray[number].pieces == 2) {
-    var element = document.getElementsByClassName("boatimg hidden");
-      element[number-1].classList.remove("hidden");
-      console.log(posDataArray[number].name);
+  if (turnCount > 0) {
+    if (turnCount%2 ==1) {
+      if (posDataArray[number].pieces == 1) {
+        var element = document.getElementsByClassName("doggoimg hidden");
+        element[number-p1TurnCount].classList.remove("hidden");
+        console.log(posDataArray[number].name);
+        console.log(number + "This is the number");
 
-  }else if (posDataArray[number].pieces == 3 && posDataArray[number.pieces>0]) {
-    var element1 = document.getElementsByClassName("doggoimg");
-    element1[number-1].classList.remove("hidden");
-    var element2 = document.getElementsByClassName("boatimg");
-    element2[number-1].classList.remove("hidden");
-    console.log(posDataArray[number].name);
+      }else if (posDataArray[number].pieces == 2) {
+        var element = document.getElementsByClassName("boatimg hidden");
+          element[number].classList.remove("hidden");
+      }else if (posDataArray[number].pieces == 3) {
+        var element1 = document.getElementsByClassName("doggoimg");
+        element1[number].classList.remove("hidden");
+        var element2 = document.getElementsByClassName("boatimg");
+        element2[number].classList.remove("hidden");
+    }} else if (turnCount%2 ==0) {
+      if (posDataArray[number].pieces == 1) {
+        var element = document.getElementsByClassName("doggoimg hidden");
+        element[number-p1TurnCount].classList.remove("hidden");
+        console.log(posDataArray[number].name);
+        console.log(number + "This is the number");
+
+      }else if (posDataArray[number].pieces == 2) {
+        var element = document.getElementsByClassName("boatimg hidden");
+          element[number-p2TurnCount].classList.remove("hidden");
+      }else if (posDataArray[number].pieces == 3) {
+        var element1 = document.getElementsByClassName("doggoimg");
+        element1[number-p1TurnCount].classList.remove("hidden");
+        var element2 = document.getElementsByClassName("boatimg");
+        element2[number-p2TurnCount].classList.remove("hidden");
+    }}
 
   }
+
 }
 var prevPos1 = p1Pos - diceNum;
 var prevPos2 = p2Pos - diceNum;
-function deleteTokens(number) {
-    // if (posDataArray[prevPos1].pieces != 1 || posDataArray[prevPos1].pieces != 2 || posDataArray[prevPos1].pieces != 3) {
-    //   var elem = getElementsByClassName("doggimg")
-    //   elem[prevPos1].classList.add("hidden");
-    //   var elem = this.querySelector("boatimg")
-    //   elem[prevPos1].classList.add("hidden");
-    // }prevPos1
+function deleteTokens() {
+  // for (var i = 1; i < 24; i++) {
+  //   if (posDataArray[i].pieces == 0 || posDataArray[i].pieces == undefined) {
+  //     var elem = document.getElementsByClassName("doggimg")
+  //     elem[i].classList.add('hidden')
+  //   } else
+  //   var elem = document.getElementsByClassName('boatimg');
+  //   elem[i].classList.add("hidden");
+  // }
 };

@@ -15,6 +15,12 @@ img {
   width: 20px;
   margin: 0px;
 }
+.p1Own{
+  background-color: rgba(255,0,0,0.4);
+}
+.p2Own{
+  background-color: rgba(0,0,255,0.4);
+}
 .full_page{
   width: 100%;
   border: 1px solid grey;
@@ -64,27 +70,27 @@ img {
   align-self: center;
   height: 500px;
   align-self: center;
-  justify-content: center;
-  margin: 2%;
-}
+    /* justify-content: center; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+ }
+
 .board_top_row{
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  align-self: flex-start;
+  width: 500px;
   height: 100px;
   border: 1px solid orange;
   }
 .board_top_left{
   width: 100px;
-  height: 100%;
+  height: 100px;
   border: 1px solid black;
 }
-
 .board_top_mid{
   width: 300px;
-  height: 100%;
+  height: 100px;
   border: 1px solid blue;
-  /* flex-direction: row; */
   display: flex;
 }
 #old_kent_road{
@@ -124,171 +130,185 @@ img {
 }
 .board_top_right{
   width: 100px;
-  height: 100%;
+  height: 100px;
   border: 1px solid red;
 }
+
 .board_mid_section{
   display: flex;
-  width: 100%;
-  height: 300px;
+  flex-direction: row-reverse;
+  width: 500px;
+  height: 400px;
   border: 1px solid teal;
+  margin-top: 5px;
 }
+
 .board_mid_left{
+  display: flex;
+  flex-direction: column-reverse;
   width: 100px;
-  height: 100%;
+  height: 400px;
   border: 1px solid black;
+  justify-content: flex-end;
+  align-self: flex-end;
+
 }
 #mayfair{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid purple;
   border-right-width: 15px;
   padding: 2px;
-
 }
 #park_lane{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid purple;
   border-right-width: 15px;
   padding: 2px;
-
 }
 #bond_street{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid green;
   border-right-width: 15px;
   padding: 2px;
 
 }
 #oxford_street{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid green;
   border-right-width: 15px;
   padding: 2px;
 
 }
 #regent_street{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid green;
   border-right-width: 15px;
   padding: 2px;
 
 }
+
 .board_mid_mid{
   width: 300px;
-  height: 100%;
+  height: 400px;
   border: 1px solid blue;
   text-align: center;
 }
+
 .board_mid_right{
   width: 100px;
-  height: 100%;
+  height: 300px;
   border: 1px solid red;
 }
+
 #pall_mall{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid orchid;
   border-left-width: 15px;
   padding: 2px;
 
 }
 #whitehall{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid orchid;
   border-left-width: 15px;
   padding: 2px;
 
 }
 #northumberland_avenue{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid orchid;
   border-left-width: 15px;
   padding: 2px;
 
 }
 #bow_street{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid orange;
   border-left-width: 15px;
   padding: 2px;
 
 }
 #marlborough_street{
-  width: 100%;
-  height: 20%;
+  width: 100px;
+  height: 60px;
   border: 1px solid orange;
   border-left-width: 15px;
   padding: 2px;
 
 }
+
 .board_bottom_row{
   display: flex;
+  flex-direction: row;
   width: 100%;
   height: 100px;
   border: 1px solid orange;
 }
 .board_bottom_left{
   width: 100px;
-  height: 100%;
+  height: 100px;
   border: 1px solid black;
 }
 .board_bottom_mid{
-  width: 300px;
-  height: 100%;
+  width: 100%;
+  height: 100px;
   border: 1px solid blue;
   display: flex;
+  flex-direction: row-reverse;
+  margin-top: 210px;
 }
 #strand{
-  width: 20%;
-  height: 100%;
+  width: 60px;
+  height: 100px;
   border: 1px solid red;
   border-top-width: 15px;
   padding: 2px;
 
 }
 #fleet_street{
-  width: 20%;
-  height: 100%;
+  width: 60px;
+  height: 100px;
   border: 1px solid red;
   border-top-width: 15px;
   padding: 2px;
 
 }
 #trafalgar_square{
-  width: 20%;
-  height: 100%;
+  width: 60px;
+  height: 100px;
   border: 1px solid red;
   border-top-width: 15px;
   padding: 2px;
 
 }
 #leicester_square{
-  width: 20%;
-  height: 100%;
+  width: 60px;
+  height: 100px;
   border: 1px solid yellow;
   border-top-width: 15px;
   padding: 2px;
 
 }
 #picadilly{
-  width: 20%;
-  height: 100%;
+  width: 60px;
+  height: 100px;
   border: 1px solid yellow;
   border-top-width: 15px;
   padding: 2px;
 
-}
+}*/
 .board_bottom_right{
   width: 100px;
-  height: 100%;
+  height: 100px;
   border: 1px solid red;
 }
 .bank_area{
