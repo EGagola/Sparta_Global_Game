@@ -13,8 +13,15 @@
       </div>
       <div class="game_page">
         <div class="player_1_col">
-          <h3>Player 1</h3>
+          <h3>Hat Man</h3>
           <h4>£ <span id="player1_money"></span> </h4>
+          <br><br><br>
+          <h4> Properties: </h4>
+          <div id="p1Property">
+            <ul class="list1">
+
+            </ul>
+          </div>
         </div>
         <div class="game_col">
           <div class="dice">
@@ -23,41 +30,41 @@
           <div class="board">
             <div class="board_top_row">
               <div class="board_top_left property" id="go">
-                <h2>Go</h2>
-                <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dogvalue=0 alt="doggo">
-                <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                <img id="arrow" src="arrow.png" alt="arrow">
+                <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=0 alt="doggo">
+                <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
               </div>
               <div class="board_top_mid">
                 <div class="property " id="old_kent_road" >
                   <p id="OKR";>Old Kent Road </p>
-                  <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png"  data-dogvalue=1 alt="doggo">
-                  <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=1 alt="doggo">
+                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                 </div>
                 <div class="property " id="whitechapel_road">
                   <p>Whitechapel Road </p>
-                  <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png"  data-dogvalue=2 alt="doggo">
-                  <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=2 alt="doggo">
+                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                 </div>
                 <div class="property" id="angel_islington">
                   <p>The Angel Islington </p>
-                  <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png"  data-dogvalue=3 alt="doggo">
-                  <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=3 alt="doggo">
+                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                 </div>
                 <div class="property" id="euston_road">
                   <p>Euston Road </p>
-                  <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png"  data-dogvalue=4 alt="doggo">
-                  <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=4 alt="doggo">
+                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                 </div>
                 <div class="property " id="pentonville_road">
                   <p>Pentonville Road </p>
-                  <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dogvalue=5 alt="doggo">
-                  <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=5 alt="doggo">
+                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                 </div>
               </div>
               <div class="board_top_right property" id="top_right">
-                <p>Top Right</p>
-                <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dogvalue=6 alt="doggo">
-                <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                <h5>Chance!</h5>
+                <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=6 alt="doggo">
+                <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
               </div>
             </div>
             <div class="board_mid_section">
@@ -65,109 +72,123 @@
                 <div class="board_mid_right">
                   <div class="property" id="pall_mall">
                     <p>Pall Mall</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dogvalue=12 alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=12 alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                   <div class="property" id="whitehall">
                     <p>Whitehall</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dog-value=13 alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dog-value=13 alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                   <div class="property" id="northumberland_avenue">
                     <p>Northumberland Avenue</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                   <div class="property" id="bow_street">
                     <p>Bow Street</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                   <div class="property" id="marlborough_street">
                     <p>Marlborough Street</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                   <div class="board_bottom_right property" id="bottom_right">
                     <p>Bottom right</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                 </div>
               </div>
+              <div class="mid_bot">
+
+
               <div class="board_mid_mid">
                 <h1>MONOPOLY</h1>
+                <img id="dollar" src="http://www.stickpng.com/assets/thumbs/593007733919fe0ee3614da3.png" alt="man">
+              </div>
                 <div class="board_bottom_row">
                   <div class="board_bottom_mid">
                       <div class="property" id="strand">
                         <p>Strand</p>
-                        <img class="doggoimg hidden"  src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                        <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                        <img class="doggoimg hidden"  src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                       </div>
                       <div class="property" id="fleet_street">
                         <p>Fleet Street</p>
-                        <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                        <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                        <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                       </div>
                       <div class="property" id="trafalgar_square">
                         <p>Trafalgar Street</p>
-                        <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                        <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                        <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                       </div>
                       <div class="property" id="leicester_square">
                         <p>Leicester Square</p>
-                        <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                        <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                        <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                       </div>
                       <div class="property" id="picadilly">
                         <p>Picadilly</p>
-                        <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                        <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                        <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                       </div>
                     </div>
                   </div>
-                </div>
+              </div>
                 <div class="board_mid_left">
                   <div class="board_bottom_left property" id="bottom_left">
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
-                    <p>Bottom left</p>
+                    <h5>Free Parking!</h5>
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+
                   </div>
                   <div class="property" id="regent_street">
                     <p>Regent Street</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dogvalue=11 alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=11 alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                   <div class="property" id="oxford_street">
                     <p>Oxford Street</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dogvalue=10 alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=10 alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                   <div class="property " id="bond_street">
                     <p>Bond Street</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dogvalue=9 alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=9 alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                   <div class="property" id="park_lane">
                     <p>Park Lane</p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dogvalue=8 alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=8 alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                   <div class="property" id="mayfair">
                     <p>Mayfair </p>
-                    <img class="doggoimg hidden" src="https://i0.wp.com/www.jmgariepy.com/wp-content/uploads/2012/08/monopoly_token_boot.png" data-dogvalue=7 alt="doggo">
-                    <img class="boatimg hidden" src="http://www.stickpng.com/assets/images/593007563919fe0ee3614da1.png" alt="boat">
+                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=7 alt="doggo">
+                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
                   </div>
                 </div>
               </div>
             </div>
             <div class="bank_area">
               <button id="startButton" type="button" name="button">Roll the dice!</button>
+              <button id="instructions" type="button" name="button" onclick="instructions()">Instructions</button>
             </div>
           </div>
           <div class="player_2_col">
-            <h3>Player 2</h3>
+            <h3>Booty McBootFace</h3>
             <h4>£ <span id="player2_money"></span></h4>
+            <br><br><br>
+            <h4> Properties: </h4>
+            <div id="p2Property">
+              <ul class="list2">
+
+              </ul>
+            </div>
           </div>
         </div>
       </div>
