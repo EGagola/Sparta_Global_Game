@@ -24,9 +24,6 @@
           </div>
         </div>
         <div class="game_col">
-          <div class="dice">
-            <h4>The roll is: <span id="rollNum"></span></h4>
-          </div>
           <div class="board">
             <div class="board_top_row">
               <div class="board_top_left property" id="go">
@@ -107,6 +104,7 @@
 
               <div class="board_mid_mid">
                 <h1>MONOPOLY</h1>
+
                 <img id="dollar" src="http://www.stickpng.com/assets/thumbs/593007733919fe0ee3614da3.png" alt="man">
               </div>
                 <div class="board_bottom_row">
@@ -174,11 +172,22 @@
                 </div>
               </div>
             </div>
+
             <div class="bank_area">
               <button id="startButton" type="button" name="button">Roll the dice!</button>
               <button id="instructions" type="button" name="button" onclick="instructions()">Instructions</button>
+              <button id="reload" type="button" name="button" onclick="reload()">Restart</button>
             </div>
+            <div class="dice">
+              <h4>The roll is: <span id="rollNum"></span></h4>
+            </div>
+            <div class="text">
+              <h6 id="textbox"></h6>
+            </div>
+          <iframe src="audio.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+          </iframe>
           </div>
+
           <div class="player_2_col">
             <h3>Booty McBootFace</h3>
             <h4>£ <span id="player2_money"></span></h4>
@@ -192,6 +201,15 @@
           </div>
         </div>
       </div>
+      <audio id="myAudio" src="ChaChing.mp3">
+
+      </audio>
+      <audio id="sadAudio" src="loss.mp3">
+
+      </audio>
+      <audio id="carhorn" src="carhorn.mp3">
+
+      </audio>
       <script type="text/javascript" src="./js/index.js"></script>
     </body>
     </html>

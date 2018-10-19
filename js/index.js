@@ -46,7 +46,8 @@ move(p1Pos);
             p1Own.sort();
             removeListP1();
             makeListP1();
-          }else if (P1ownerRequest == "No") {
+            checkOwner();
+          }else if (P1ownerRequest == "no") {
             alert("You have not bought the property");
           }else {
             alert("Invalid input, you don't deserve a property");
@@ -60,15 +61,20 @@ move(p1Pos);
       p2Dollar += posDataArray[p1Pos%24].payout;
       document.getElementById('player1_money').innerHTML= p1Dollar;
       document.getElementById('player2_money').innerHTML= p2Dollar;
+      playAudio();
       if (p1Dollar < 0) {
         alert("Hat Man has run out of money! Booty McBootFace is the winner!")
       }
     }else if (posDataArray[p1Pos%24].owner == 3) {
       p1Dollar += 20;
       document.getElementById('player1_money').innerHTML= p1Dollar;
+      playAudio();
+
     }else if (posDataArray[p1Pos%24].owner == 4) {
       p1Dollar += 50;
       document.getElementById('player1_money').innerHTML= p1Dollar;
+      playAudio();
+
     } else if (posDataArray[p1Pos%24].owner ==5) {
       p1Dollar -= 30;
       document.getElementById('player1_money').innerHTML= p1Dollar;
@@ -81,7 +87,6 @@ move(p1Pos);
     document.querySelector(".player_2_col").style.backgroundColor = "rgba(0,0,255,0.1)";
     document.getElementById('player_turn').innerHTML = "1";
     document.getElementById('startButton').style.backgroundColor = "red";
-
 
 move(p2Pos);
     if (posDataArray[p2Pos%24].owner == 0) {
@@ -98,7 +103,8 @@ move(p2Pos);
           p2Own.sort();
           removeListP2();
           makeListP2();
-        }else if (P2ownerRequest == "No") {
+          checkOwner();
+        }else if (P2ownerRequest == "no") {
           alert("Property not bought");
         }else {
         alert("Invalid input, you don't deserve a property");
@@ -119,9 +125,13 @@ move(p2Pos);
     console.log("You just won £20!");
     p2Dollar += 20;
     document.getElementById('player2_money').innerHTML= p2Dollar;
+    playAudio();
+
   }else if (posDataArray[p2Pos%24].owner == 4) {
-    p2Dollar += 50;
+    p2Dollar += 200;
     document.getElementById('player2_money').innerHTML= p2Dollar;
+    playAudio();
+
   }else if (posDataArray[p2Pos%24].owner ==5) {
     p2Dollar -= 30;
     document.getElementById('player2_money').innerHTML= p2Dollar;
@@ -180,7 +190,7 @@ var LS = new positionData("Leicester Square","leicester_square",16,0,260,65,0);
 posDataArray.push(LS);
 var P = new positionData("Picadilly","picadilly",17,0,280,70,0);
 posDataArray.push(P);
-var BL = new positionData("Bottom Left","bottom_left",18,3,0,0,0);
+var BL = new positionData("Bottom Left","bottom_left",18,6,0,0,0);
 posDataArray.push(BL);
 var RS = new positionData("Regent Street","regent_street",19,0,300,75,0);
 posDataArray.push(RS);
@@ -197,33 +207,26 @@ function changePieceValue(number) {
   if (turnCount % 2 == 1) {
     pieces[number] += 1;
     // posDataArray[(number-diceNum)] -= 1;
-    console.log("P1 pieces " + posDataArray[number].pieces);
   } else if (turnCount % 2 == 0) {
     var newToken = document.createElement('img');
     pieces[number] += 2;
     // posDataArray[(number-diceNum)] -= 2;
-    console.log("P2 pieces " + posDataArray[number].pieces);
   }
 }
 function makeTokens(number) {
   if (turnCount > 0) {
     if (turnCount%2 ==1) {
-      console.log(pieces[number] + "p1 pieces(number)");
-      console.log(posDataArray[number].pieces);
+
       if (posDataArray[number].pieces == (pieces[number]-1)) {
         var element = document.getElementsByClassName("doggoimg hidden");
         element[number].classList.remove("hidden");
         posDataArray[number].pieces = pieces[number];
-        console.log(posDataArray[number].name);
-        console.log(posDataArray[number].pieces + "This is the number");
-        console.log(posDataArray[number].pieces + "0Number 1 to be checked");
-        console.log(pieces[number] + "0 Number 2 to be checked");
+
       }else if (posDataArray[number].pieces == (pieces[number]-2)) {
         var element = document.getElementsByClassName("boatimg hidden");
           element[number].classList.remove("hidden");
           posDataArray[number].pieces = pieces[number];
-          console.log(posDataArray[number].pieces + "1Number 1 to be checked");
-          console.log(pieces[number] + "1Number 2 to be checked");
+
 
       }else if (posDataArray[number].pieces == (pieces[number]-3)) {
         var element1 = document.getElementsByClassName("doggoimg");
@@ -238,19 +241,16 @@ function makeTokens(number) {
       if (posDataArray[number].pieces == (pieces[number]-1)) {
         var element = document.getElementsByClassName("doggoimg hidden");
         element[number].classList.remove("hidden");
-        console.log(posDataArray[number].name);
-        console.log(number + "This is the number");
+
         posDataArray[number].pieces = pieces[number];
-        console.log(posDataArray[number].pieces + "3Number 1 to be checked");
-        console.log(pieces[number] + "3Number 2 to be checked");
+
 
 
       }else if (posDataArray[number].pieces == (pieces[number]-2)) {
         var element = document.getElementsByClassName("boatimg hidden");
           element[number].classList.remove("hidden");
           posDataArray[number].pieces = pieces[number];
-          console.log(posDataArray[number].pieces + "4Number 1 to be checked");
-          console.log(pieces[number] + "4Number 2 to be checked");
+
 
 
       }else if (posDataArray[number].pieces == (pieces[number]-3)) {
@@ -259,8 +259,7 @@ function makeTokens(number) {
         var element2 = document.getElementsByClassName("boatimg");
         element2[number].classList.remove("hidden");
         posDataArray[number].pieces = pieces[number];
-        console.log(posDataArray[number].pieces + "5Number 1 to be checked");
-        console.log(pieces[number] + "5Number 2 to be checked");
+
 
     }
   }
@@ -295,6 +294,22 @@ function removeListP1() {
 function removeListP2() {
   var listElemP2 = document.getElementsByClassName('list2');
     listElemP2[0].parentNode.removeChild(listElemP2[0]);
+}
+var y =document.getElementById("sadAudio");
+var x = document.getElementById("myAudio");
+function playSadAudio() {
+  y.play();
+}
+function playAudio() {
+    x.play();
+}
+var z = document.getElementById("carhorn");
+var w = document.getElementById('iframeAudio');
+function playcarAudio() {
+  x.play();
+}
+function stopBackMusic() {
+  w.stop();
 }
 function makeListP1() {
     // Make the list
@@ -341,7 +356,7 @@ function makeListP2() {
     }
 }
 function instructions() {
-  alert('MONOPOLY is the game of buying, renting or selling Properties so profitably that players increase their wealth – the wealthiest becoming the eventual winner. Starting from the GO space, move your token around the board according to your roll of the dice. When you land on a Property that is not already owned by anyone else, you may buy it from the Bank. Players who own Properties collect rents from opponents stopping there. You must always obey the instructions given on Community Chest and Chance cards.')
+alert("MONOPOLY is the game of buying, renting or selling Properties so profitably that players increase their wealth – the wealthiest becoming the eventual winner. Starting from the GO space, move your token around the board according to your roll of the dice. When you land on a Property that is not already owned by anyone else, you may buy it from the Bank. Players who own Properties collect rents from opponents stopping there. On player turn, roll the dice, if you land on an unowned property: Decide whether to buy the property. If you own all properties of the same colour, all properties become twice as valuable and the rent doubles. If you land on a chance card a card will be randomly selected and it's effects will be automatically applied. If you land on your opponents property, you will pay them the value of the rent for that tile.");
 }
 function landAlert(number) {
   alert(`You have landed on ${posDataArray[number].name} which costs £${posDataArray[number].cost} and will return £${posDataArray[number].payout} in rent.`)
@@ -419,6 +434,7 @@ function move(position) {
         deleteTokens();
         makeTokens(12);
         alert("Your car breaks down, pay £30 in repairs")
+        playSadAudio();
       break;
     case 13:
         changePieceValue(13);
@@ -454,7 +470,8 @@ function move(position) {
         changePieceValue(18);
         deleteTokens();
         makeTokens(18);
-        alert("Free Parking! Pay nothing this turn")
+        alert("Free Parking! Pay nothing this turn");
+        playcarAudio();
       break;
     case 19:
         changePieceValue(19);
@@ -490,7 +507,14 @@ function move(position) {
         changePieceValue(0);
         deleteTokens();
         makeTokens(0);
-        alert("You landed on Go and find £50!")
+        alert("You landed on Go and gain £200!")
+        if (turnCount%2 == 1) {
+          p1Dollar += 200;
+          document.getElementById('player1_money').innerHTML = p1Dollar;
+        } else {
+          p2Dollar += 200;
+          document.getElementById('player2_money').innerHTML = p2Dollar;
+        }
       break;
     default:
     console.log("Don't move");
@@ -500,96 +524,106 @@ function chance() {
   var rand = Math.floor(Math.random()*chances.length)
   alert(`${chances[rand]}`)
   switch (rand) {
-    case 0:
-      if (p1Pos%24 ==6) {
-        changePieceValue(0);
-        deleteTokens();
-        makeTokens(0);
-        p1Pos -=6;
-        p1TurnCount +=1;
-        p1Dollar += 50;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
-      }else if (p2Pos%24 ==6) {
-        changePieceValue(0);
-        deleteTokens();
-        makeTokens(0);
-        landAlert(0);
-        p2TurnCount +=1
-        p2Pos -=6;
-        p2Dollar += 50;
+    case 1:
+      if (p2Pos%24 == 6) {
+        p2Dollar -= 60;
         document.getElementById('player2_money').innerHTML = p2Dollar;
+        playSadAudio()
+        if (p2Dollar <0) {
+          alert("Booty McBootFace has run out of money! Hat Man is the winner!")
+        }
+      }else if (p1Pos%24 == 6){
+        p1Dollar -= 60;
+        document.getElementById('player1_money').innerHTML = p1Dollar;
+        playSadAudio()
+        if (p1Dollar < 0) {
+          alert("Hat Man has run out of money! Booty McBootFace is the winner!")
+        }
       }
     break;
+    break;
     case 1:
-    if (p1Pos%24 == 6) {
-      changePieceValue(3);
-      deleteTokens();
-      makeTokens(3);
-      landAlert(3);
-      p1Pos -=3;
-      p1TurnCount +=1;
-    }else if (p2Pos%24 == 6) {
-      changePieceValue(3);
-      deleteTokens();
-      makeTokens(3);
-      landAlert(3);
-      p2TurnCount +=1
-      p2Pos -=3
-    }
+      if (p2Pos%24 == 6) {
+        p2Dollar += 1;
+        document.getElementById('player2_money').innerHTML = p2Dollar;
+        playAudio()
+      }else if (p1Pos%24 == 6){
+        p1Dollar += 1;
+        document.getElementById('player1_money').innerHTML = p1Dollar;
+        playAudio()
+      }
     break;
     case 2:
       if (p2Pos%24 == 6) {
         p2Dollar += 200;
         document.getElementById('player2_money').innerHTML = p2Dollar;
-      }else if (p1Pos%24 == 6 || p1Pos%24 ==18){
+        playAudio();
+
+      }else if (p1Pos%24 == 6){
         p1Dollar += 200;
         document.getElementById('player1_money').innerHTML = p1Dollar;
+        playAudio();
+
       }
     break;
     case 3:
       if (p2Pos%24 == 6) {
         p2Dollar += 20;
         document.getElementById('player2_money').innerHTML = p2Dollar;
-      }else if (p1Pos%24 == 6 || p1Pos%24 ==18){
+        playAudio();
+
+      }else if (p1Pos%24 == 6){
         p1Dollar += 20;
         document.getElementById('player1_money').innerHTML = p1Dollar;
+        playAudio();
+
       }
     break;
     case 4:
-      if (p2Pos%24 == 6 || p2Pos%24 == 18) {
+      if (p2Pos%24 == 6) {
         p2Dollar += 100;
         document.getElementById('player2_money').innerHTML = p2Dollar;
-      }else if (p1Pos%24 == 6 || p1Pos%24 ==18){
+        playAudio();
+
+      }else if (p1Pos%24 == 6){
         p1Dollar += 100;
         document.getElementById('player1_money').innerHTML = p1Dollar;
+        playAudio();
+
       }
     break;
     case 5:
-      if (p1Pos%24 == 6) {
+    if (p2Pos%24 == 6) {
+      p2Dollar -= 100;
+      document.getElementById('player2_money').innerHTML = p2Dollar;
+      playSadAudio();
+      if (p2Dollar < 0 ) {
+        alert("Booty McBootFace has run out of money! Hat Man is the winner!")
 
-        changePieceValue(9);
-        deleteTokens();
-        makeTokens(9);
-        landAlert(9);
-        p1Pos +=3
-        p1turnCount +=1;
-      } else if (p2Pos%24 == 6) {
-
-        changePieceValue(9);
-        deleteTokens();
-        makeTokens(9);
-        landAlert(9);
-        p2Pos +=3;
-        p2TurnCount +=1
       }
+      } else if (p1Pos%24 == 6){
+        p1Dollar -= 100;
+        document.getElementById('player1_money').innerHTML = p1Dollar;
+        playSadAudio();
+      }      if (p1Dollar < 0) {
+              alert("Hat Man has run out of money! Booty McBootFace is the winner!")
+            }
     break;
     case 6:
-      if (p2Pos%24 == 6 || p2Pos%24 == 18) {
+      if (p2Pos%24 == 6) {
         p2Dollar -= 50;
         document.getElementById('player2_money').innerHTML = p2Dollar;
-      }else if (p1Pos%24 == 6 || p1Pos%24 ==18){
+        playSadAudio()
+        if (p2Dollar <0) {
+          alert("Booty McBootFace has run out of money! Hat Man is the winner!")
+        }
+      }else if (p1Pos%24 == 6){
         p1Dollar -= 50;
         document.getElementById('player1_money').innerHTML = p1Dollar;
+        playSadAudio()
+        if (p1Dollar < 0) {
+          alert("Hat Man has run out of money! Booty McBootFace is the winner!")
+        }
       }
     break;
     case 7:
@@ -598,14 +632,114 @@ function chance() {
         p1Dollar -= 50;
         document.getElementById('player2_money').innerHTML = p2Dollar;
         document.getElementById('player1_money').innerHTML = p1Dollar;
-      }else if (p1Pos%24 == 6 || p1Pos%24 ==18){
+        playAudio();
+        if (p1Dollar < 0) {
+          alert("Hat Man has run out of money! Booty McBootFace is the winner!")
+        }
+      }else if (p1Pos%24 == 6){
         p1Dollar += 50;
         p2Dollar -=50;
         document.getElementById('player1_money').innerHTML = p1Dollar;
         document.getElementById('player2_money').innerHTML = p2Dollar;
+        playAudio();
+        if (p2Dollar <0) {
+          alert("Booty McBootFace has run out of money! Hat Man is the winner!")
+        }
       }
+    break;
+    case 8:
+      if (p2Pos%24 == 6) {
+        p2Dollar -= 10;
+        document.getElementById('player2_money').innerHTML = p2Dollar;
+        playSadAudio();
+        if (p2Dollar < 0) {
+          alert("Booty McBootFace has run out of money! Hat Man is the winner!")
+        }
+      }else if (p1Pos%24 == 6){
+        p1Dollar -= 10;
+        document.getElementById('player1_money').innerHTML = p1Dollar;
+        playSadAudio();
+      }      if (p1Dollar < 0) {
+              alert("Hat Man has run out of money! Booty McBootFace is the winner!")
+            }
+    break;
+    case 9:
+      if (p2Pos%24 == 6) {
+        p2Dollar -= 300;
+        document.getElementById('player2_money').innerHTML = p2Dollar;
+        playSadAudio();
+        if (p2Dollar < 0) {
+        alert("Booty McBootFace has run out of money! Hat Man is the winner!")
+        }
+      }else if (p1Pos%24 == 6){
+        p1Dollar -= 300;
+        document.getElementById('player1_money').innerHTML = p1Dollar;
+        playSadAudio();
+      }      if (p1Dollar < 0) {
+              alert("Hat Man has run out of money! Booty McBootFace is the winner!")
+            }
+    break;
     default:
 
   }
 }
-var chances = ["Chance card! Advance To Go!","Chance card! Go back 3 spaces","Chance card! Bank error in your favour, gain £200!","Chance card! Tax refund, claim £20","Chance card! You inherit £100 from a distant relative's death", "Chance card! Move forward 3 spaces","Chance card! Hospital fees, pay £50","Chance card! It's your birthday! Take £50 from the other player!"];
+var chances = ["Chance card! Your neighbour complains that your new extension obstructs light to their property, pay £60 in reparations","Chance card! You come in second place in a beauty contest, win £1!","Chance card! Bank error in your favour, gain £200!","Chance card! Tax refund, claim £20","Chance card! You inherit £100 from a distant relative's death", "Chance card! You mistakenly invest in a Nigerian prince, lose £100","Chance card! Hospital fees, pay £50","Chance card! It's your birthday! Take £50 from the other player!","Chance card! Parking fine pay £10","Chance card! All of your money was invested in the Leyman Brothers, you lose £300"];
+var brown =0;
+var lb = 0;
+var lp =0;
+var orange = 0;
+var red = 0;
+var yellow = 0;
+var green = 0;
+var purple =0;
+function checkOwner() {
+  if (posDataArray[1].owner == posDataArray[2].owner && posDataArray[1].owner != 0 && brown == 0) {
+    posDataArray[1].payout = (posDataArray[1].payout*2);
+    posDataArray[2].payout = (posDataArray[2].payout*2);
+    alert("You have completed the brown set. Rent for these properties is doubled");
+    brown++;
+  }else if (posDataArray[3].owner == posDataArray[4].owner && posDataArray[4].owner == posDataArray[5].owner && posDataArray[3].owner !=0 && lb ==0) {
+    posDataArray[3].payout = (posDataArray[3].payout*2);
+    posDataArray[4].payout = (posDataArray[4].payout*2);
+    posDataArray[5].payout = (posDataArray[5].payout*2);
+    alert("You have completed the light blue set. Rent for these properties is doubled");
+    lb++;
+  }else if (posDataArray[7].owner == posDataArray[8].owner && posDataArray[8].owner == posDataArray[9].owner && posDataArray[7].owner !=0 && lp ==0) {
+    posDataArray[7].payout = (posDataArray[7].payout*2);
+    posDataArray[8].payout = (posDataArray[8].payout*2);
+    posDataArray[9].payout = (posDataArray[9].payout*2);
+    alert("You have completed the light purple set. Rent for these properties is doubled");
+    lp++;
+  }else if (posDataArray[10].owner == posDataArray[11].owner && posDataArray[10].owner !=0 && orange == 0) {
+    posDataArray[10].payout = (posDataArray[10].payout*2);
+    posDataArray[11].payout = (posDataArray[11].payout*2);
+    alert("You have completed the orange set. Rent for these properties is doubled");
+    orange++;
+  }else if (posDataArray[13].owner == posDataArray[14].owner && posDataArray[14].owner == posDataArray[15].owner && posDataArray[13].owner !=0 && red ==0) {
+    posDataArray[13].payout = (posDataArray[13].payout*2);
+    posDataArray[14].payout = (posDataArray[14].payout*2);
+    posDataArray[15].payout = (posDataArray[15].payout*2);
+    alert("You have completed the red set. Rent for these properties is doubled");
+    red++;
+  }else if (posDataArray[16].owner == posDataArray[17].owner && posDataArray[17].owner !=0 && yellow ==0) {
+    posDataArray[16].payout = (posDataArray[16].payout*2);
+    posDataArray[17].payout = (posDataArray[17].payout*2);
+    alert("You have completed the yellow set. Rent for these properties is doubled");
+    yellow++;
+  }else if (posDataArray[19].owner == posDataArray[20].owner && posDataArray[20].owner == posDataArray[21].owner && posDataArray[19].owner !=0 && green ==0) {
+    posDataArray[19].payout = (posDataArray[19].payout*2);
+    posDataArray[20].payout = (posDataArray[20].payout*2);
+    posDataArray[21].payout = (posDataArray[21].payout*2);
+    alert("You have completed the green set. Rent for these properties is doubled");
+    green++;
+  }else if (posDataArray[22].owner == posDataArray[23].owner && posDataArray[22].owner !=0 && purple ==0) {
+    posDataArray[22].payout = (posDataArray[22].payout*2);
+    posDataArray[23].payout = (posDataArray[23].payout*2);
+    alert("You have completed the dark purple set. Rent for these properties is doubled");
+    purple++;
+  }
+}function reload() {
+  document.getElementById('reload').addEventListener("click",function(){
+    location.reload();
+  })
+}
