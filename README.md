@@ -7,5 +7,7 @@ Starting from the "GO" space, move your token around the board
 according to your roll of the dice. When you land on a Property that
 is not already owned by anyone else, you may buy it from the Bank.
 Players who own Properties collect rents from opponents stopping
-there. You must always obey the instructions given
+there, with players owning sets getting twice as much rent. You must always obey the instructions given
 on Chance cards.
+
+The project had to be completed over the course of two sprints, totalling a week's worth of work.
