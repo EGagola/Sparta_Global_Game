@@ -1,0 +1,392 @@
+*{
+  box-sizing: border-box;
+}
+body{
+  display: flex;
+}
+h1{
+  text-align: center;
+  font-size: 37pt;
+}
+h2{
+  text-align: center;
+}
+h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 25pt;
+}
+h5 {
+  text-align: center;
+  font-size: 12pt;
+}
+p{
+  font-size: 8pt;
+  text-align: center;
+}
+img {
+  height:35px;
+  width: 35px;
+  margin: 1px;
+}
+.p1Own{
+  background-color: rgba(255,0,0,0.4);
+}
+.p2Own{
+  background-color: rgba(0,0,255,0.4);
+}
+.full_page{
+  width: 100%;
+  border: 1px solid grey;
+  height: 1000px;
+}
+.top_bar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  border: 1px solid black;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+}
+#arrow{
+  width:70%;
+  height:30%;
+  margin-left: 18px;
+  margin-top: 20px;
+}
+.game_page{
+  display: flex;
+  width: 100%;
+  height: 94%;
+}
+.player_1_col{
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  border: 1px solid black;
+  text-align: center;
+  background-color: rgba(255,0,0,0.4);
+}
+.game_col{
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  border: 1px solid black;
+  background-color: navajowhite;
+}
+.dice{
+  width: 100%;
+  height: 60px;
+  text-align: center;
+/* padding-bottom: 100px; */
+}
+.board{
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  align-self: center;
+  height: 700px;
+  align-self: center;
+  margin-top: 20px;
+    background-color: white;
+ }
+.property:hover{
+  transform: scale(1.6);
+  background-color: white;
+  font-weight: bold;
+}
+.board_top_row{
+  display: flex;
+  align-self: flex-start;
+  width: 700px;
+  height: 140px;
+  }
+.board_top_left{
+  width: 140px;
+  height: 140px;
+  border: 5px solid black;
+}
+.board_top_mid{
+  width: 420px;
+  height: 140px;
+  display: flex;
+}
+#old_kent_road{
+  width:20%;
+  height: 100%;
+  border: 1px solid brown;
+  border-bottom-width: 15px;
+  padding: 2px;
+}
+#whitechapel_road{
+  width:20%;
+  height: 100%;
+  border: 1px solid brown;
+  border-bottom-width: 15px;
+  padding: 2px;
+}
+#angel_islington{
+  width:20%;
+  height: 100%;
+  border: 1px solid lightblue;
+  border-bottom-width: 15px;
+  padding: 2px;
+}
+#euston_road{
+  width:20%;
+  height: 100%;
+  border: 1px solid lightblue;
+  border-bottom-width: 15px;
+  padding: 2px;
+}
+#pentonville_road{
+  width:20%;
+  height: 100%;
+  border: 1px solid lightblue;
+  border-bottom-width: 15px;
+  padding: 2px;
+}
+.board_top_right{
+  width: 140px;
+  height: 140px;
+  border: 5px solid black;
+}
+
+.board_mid_section{
+  display: flex;
+  flex-direction: row-reverse;
+  width: 700px;
+  height: 560px;
+}
+
+.board_mid_left{
+  display: flex;
+  flex-direction: column-reverse;
+  width: 140px;
+  height: 560px;
+  justify-content: flex-end;
+  align-self: flex-end;
+
+}
+#mayfair{
+  width: 100%;
+  height: 84px;
+  border: 1px solid purple;
+  border-right-width: 15px;
+  padding: 2px;
+}
+#park_lane{
+  width: 100%;
+  height: 84px;
+  border: 1px solid purple;
+  border-right-width: 15px;
+  padding: 2px;
+}
+#bond_street{
+  width: 100%;
+  height: 84px;
+  border: 1px solid green;
+  border-right-width: 15px;
+  padding: 2px;
+
+}
+#oxford_street{
+  width: 100%;
+  height: 84px;
+  border: 1px solid green;
+  border-right-width: 15px;
+  padding: 2px;
+
+}
+#regent_street{
+  width: 100%;
+  height: 84px;
+  border: 1px solid green;
+  border-right-width: 15px;
+  padding: 2px;
+
+}
+
+.board_mid_mid{
+  width: 420px;
+  height: 420px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  }
+.board_mid_mid img {
+  height: 200px;
+  width: 200px;
+  align-self: center;
+}
+.mid_bot{
+  display: flex;
+  flex-direction: column;
+}
+.board_mid_right{
+  width: 140px;
+  height: 420px;
+}
+
+#pall_mall{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orchid;
+  border-left-width: 15px;
+  padding: 2px;
+
+}
+#whitehall{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orchid;
+  border-left-width: 15px;
+  padding: 2px;
+
+}
+#northumberland_avenue{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orchid;
+  border-left-width: 15px;
+  padding: 2px;
+
+}
+#bow_street{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orange;
+  border-left-width: 15px;
+  padding: 2px;
+
+}
+#marlborough_street{
+  width: 100%;
+  height: 20%;
+  border: 1px solid orange;
+  border-left-width: 15px;
+  padding: 2px;
+
+}
+
+.board_bottom_row{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 140px;
+}
+.board_bottom_left{
+  width: 140px;
+  height: 140px;
+  border: 5px solid black;
+}
+.board_bottom_mid{
+  width: 100%;
+  height: 140px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+#strand{
+  width: 20%;
+  height: 140px;
+  border: 1px solid red;
+  border-top-width: 15px;
+  padding: 2px;
+
+}
+#fleet_street{
+  width: 20%;
+  height: 140px;
+  border: 1px solid red;
+  border-top-width: 15px;
+  padding: 2px;
+
+}
+#trafalgar_square{
+  width: 20%;
+  height: 140px;
+  border: 1px solid red;
+  border-top-width: 15px;
+  padding: 2px;
+
+}
+#leicester_square{
+  width: 20%;
+  height: 140px;
+  border: 1px solid yellow;
+  border-top-width: 15px;
+  padding: 2px;
+
+}
+#picadilly{
+  width: 20%;
+  height: 140px;
+  border: 1px solid yellow;
+  border-top-width: 15px;
+  padding: 2px;
+
+}*/
+.board_bottom_right{
+  border: 5px solid black;
+}
+#bottom_right{
+  border: 5px solid black;
+  width: 140px;
+  height: 140px;
+}
+.bank_area{
+  display: flex;
+  width: 100%;
+  height: 50px;
+  align-self: flex-end;
+  justify-content: center;
+}
+#startButton{
+  background-color: red;
+  margin-top: 10px;
+  color: white;
+  border-radius: 15px;
+  height: 40px;
+  justify-content: center;
+  font-size: 15pt;
+}
+#instructions{
+position: absolute;
+left: 494px;
+top: 800px;
+font-size: 15pt;
+}
+#reload{
+  position: absolute;
+  top: 800px;
+  right: 494px;
+  font-size: 15pt;
+}
+.player_2_col{
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  border: 1px solid black;
+  text-align: center;
+  background-color: rgba(0,0,255,0.1);
+}
+.hidden{
+  display: none;
+}
+li{
+text-align: left;
+font-size: 20pt;
+}
+
+/* #textbox{
+  text-align: center;
+  padding: 10px;
+} */
+/* .text{
+  height: 100px;
+} */
