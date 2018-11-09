@@ -33,6 +33,7 @@ start.addEventListener("click",function() { //On click of "Roll the dice!" this 
 move(p1Pos);
 
     if (posDataArray[p1Pos%24].owner == 0) {
+
       if (p1Dollar >= posDataArray[p1Pos%24].cost) {
         var P1ownerRequest = prompt("Would you like to buy this property?").toLowerCase();
           if (P1ownerRequest == "yes") {
@@ -310,6 +311,11 @@ function playcarAudio() {
 }
 function stopBackMusic() {
   w.stop();
+}
+function displayResult() {
+  if (ResultCollector.capture === true) {
+    docum
+  }
 }
 function makeListP1() {
     // Make the list
