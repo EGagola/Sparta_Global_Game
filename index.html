@@ -12,15 +12,28 @@
         <h2>Player turn: <span id="player_turn"></span> </h2>
       </div>
       <div class="game_page">
-        <div class="player_1_col">
-          <h3>Hat Man</h3>
-          <h3>£ <span id="player1_money"></span> </h3>
-          <br><br><br>
-          <h3> Properties: </h3>
-          <div id="p1Property">
-            <ul class="list1">
+        <div class="left_col">
+          <div class="player_1_area">
 
-            </ul>
+            <h3>Hat Man</h3>
+            <h3>£ <span id="hat_money"></span> </h3>
+            <h3> Properties: </h3>
+            <div id="p1Property">
+              <ul class="list1">
+
+              </ul>
+            </div>
+          </div>
+          <div class="player_3_area">
+
+            <h3>Iron Man</h3>
+            <h3>£ <span id="iron_money"></span> </h3>
+            <h3> Properties: </h3>
+            <div id="p3Property">
+              <ul class="list3">
+
+              </ul>
+            </div>
           </div>
         </div>
         <div class="game_col">
@@ -28,40 +41,58 @@
             <div class="board_top_row">
               <div class="board_top_left property" id="go">
                 <img id="arrow" src="arrow.png" alt="arrow">
-                <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=0 alt="doggo">
-                <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=0 alt="Hat">
+                <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
               </div>
               <div class="board_top_mid">
                 <div class="property " id="old_kent_road" >
                   <p id="OKR";>Old Kent Road </p>
-                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=1 alt="doggo">
-                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                  <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=1 alt="Hat">
+                  <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                  <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                  <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                 </div>
                 <div class="property " id="whitechapel_road">
                   <p>Whitechapel Road </p>
-                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=2 alt="doggo">
-                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                  <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=2 alt="Hat">
+                  <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                  <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                  <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                 </div>
                 <div class="property" id="angel_islington">
                   <p>The Angel Islington </p>
-                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=3 alt="doggo">
-                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                  <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=3 alt="Hat">
+                  <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                  <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                  <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
+
                 </div>
                 <div class="property" id="euston_road">
                   <p>Euston Road </p>
-                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=4 alt="doggo">
-                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                  <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png"  data-dogvalue=4 alt="Hat">
+                  <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                  <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                  <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
+
                 </div>
                 <div class="property " id="pentonville_road">
                   <p>Pentonville Road </p>
-                  <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=5 alt="doggo">
-                  <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                  <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=5 alt="Hat">
+                  <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                  <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                  <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
+
                 </div>
               </div>
               <div class="board_top_right property" id="top_right">
                 <h5>Chance!</h5>
-                <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=6 alt="doggo">
-                <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=6 alt="Hat">
+                <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
+
               </div>
             </div>
             <div class="board_mid_section">
@@ -69,110 +100,139 @@
                 <div class="board_mid_right">
                   <div class="property" id="pall_mall">
                     <p>Pall Mall</p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=12 alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=12 alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="property" id="whitehall">
                     <p>Whitehall</p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dog-value=13 alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dog-value=13 alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="property" id="northumberland_avenue">
                     <p>Northumberland Avenue</p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="property" id="bow_street">
                     <p>Bow Street</p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="property" id="marlborough_street">
                     <p>Marlborough Street</p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="board_bottom_right property" id="bottom_right">
-                    <h5>In Traffic</h5>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <h5>Breakdown</h5>
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                 </div>
               </div>
               <div class="mid_bot">
-
-
-              <div class="board_mid_mid">
-                <h1>MONOPOLY</h1>
-
-                <img id="dollar" src="http://www.stickpng.com/assets/thumbs/593007733919fe0ee3614da3.png" alt="man">
-              </div>
+                <div class="board_mid_mid">
+                  <h1>MONOPOLY</h1>
+                  <img id="dollar" src="http://www.stickpng.com/assets/thumbs/593007733919fe0ee3614da3.png" alt="man">
+                </div>
                 <div class="board_bottom_row">
                   <div class="board_bottom_mid">
-                      <div class="property" id="strand">
-                        <p>Strand</p>
-                        <img class="doggoimg hidden"  src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
-                      </div>
-                      <div class="property" id="fleet_street">
-                        <p>Fleet Street</p>
-                        <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
-                      </div>
-                      <div class="property" id="trafalgar_square">
-                        <p>Trafalgar Street</p>
-                        <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
-                      </div>
-                      <div class="property" id="leicester_square">
-                        <p>Leicester Square</p>
-                        <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
-                      </div>
-                      <div class="property" id="picadilly">
-                        <p>Picadilly</p>
-                        <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                        <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
-                      </div>
+                    <div class="property" id="strand">
+                      <p>Strand</p>
+                      <img class="hatIcon hidden icon"  src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                      <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                      <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                      <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
+                    </div>
+                    <div class="property" id="fleet_street">
+                      <p>Fleet Street</p>
+                      <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                      <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                      <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                      <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
+                    </div>
+                    <div class="property" id="trafalgar_square">
+                      <p>Trafalgar Street</p>
+                      <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                      <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                      <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                      <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
+                    </div>
+                    <div class="property" id="leicester_square">
+                      <p>Leicester Square</p>
+                      <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                      <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                      <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                      <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
+                    </div>
+                    <div class="property" id="picadilly">
+                      <p>Picadilly</p>
+                      <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                      <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                      <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                      <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                     </div>
                   </div>
+                </div>
               </div>
                 <div class="board_mid_left">
                   <div class="board_bottom_left property" id="bottom_left">
                     <h5>Free Parking!</h5>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
-
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="property" id="regent_street">
                     <p>Regent Street</p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=11 alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=11 alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="property" id="oxford_street">
                     <p>Oxford Street</p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=10 alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=10 alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="property " id="bond_street">
                     <p>Bond Street</p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=9 alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=9 alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="property" id="park_lane">
                     <p>Park Lane</p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=8 alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=8 alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                   <div class="property" id="mayfair">
                     <p>Mayfair </p>
-                    <img class="doggoimg hidden" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=7 alt="doggo">
-                    <img class="boatimg hidden" src="https://static.thenounproject.com/png/331516-200.png" alt="boat">
+                    <img class="hatIcon hidden icon" src="https://static.thenounproject.com/png/331514-200.png" data-dogvalue=7 alt="Hat">
+                    <img class="bootIcon hidden icon" src="https://static.thenounproject.com/png/331516-200.png" alt="Boot">
+                    <img class="ironIcon hidden icon" src="https://static.thenounproject.com/png/331515-200.png" alt="Iron">
+                    <img class="gentIcon hidden icon" src="https://static.thenounproject.com/png/475740-200.png" alt="Gent">
                   </div>
                 </div>
               </div>
             </div>
-
             <div class="bank_area">
               <button id="startButton" type="button" name="button">Roll the dice!</button>
               <button id="instructions" type="button" name="button" onclick="instructions()">Instructions</button>
@@ -186,12 +246,11 @@
             </div>
           <iframe src="audio.mp3" allow="autoplay" style="display:none" id="iframeAudio">
           </iframe>
-          </div>
-
-          <div class="player_2_col">
+        </div>
+        <div class="right_col">
+          <div class="player_2_area">
             <h3>Booty McBootFace</h3>
-            <h3>£ <span id="player2_money"></span></h3>
-            <br><br><br>
+            <h3>£ <span id="boot_money"></span></h3>
             <h3> Properties: </h3>
             <div id="p2Property">
               <ul class="list2">
@@ -199,17 +258,25 @@
               </ul>
             </div>
           </div>
+          <div class="player_4_area">
+            <h3>Gentleman</h3>
+            <h3>£ <span id="gent_money"></span></h3>
+            <h3> Properties: </h3>
+            <div id="p4Property">
+              <ul class="list4">
+
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <audio id="myAudio" src="ChaChing.mp3">
-
-      </audio>
-      <audio id="sadAudio" src="loss.mp3">
-
-      </audio>
-      <audio id="carhorn" src="carhorn.mp3">
-
-      </audio>
-      <script type="text/javascript" src="./js/index.js"></script>
-    </body>
-    </html>
+    </div>
+    <audio id="myAudio" src="ChaChing.mp3">
+    </audio>
+    <audio id="sadAudio" src="loss.mp3">
+    </audio>
+    <audio id="carhorn" src="carhorn.mp3">
+    </audio>
+    <script type="text/javascript" src="./js/index.js"></script>
+  </body>
+</html>

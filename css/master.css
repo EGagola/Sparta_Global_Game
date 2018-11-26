@@ -14,7 +14,7 @@ h2{
 h3 {
   width: 100%;
   text-align: center;
-  font-size: 25pt;
+  font-size: 20pt;
 }
 h5 {
   text-align: center;
@@ -29,10 +29,11 @@ img {
   width: 35px;
   margin: 1px;
 }
-.p1Own{
+
+.hat_owned_properties{
   background-color: rgba(255,0,0,0.4);
 }
-.p2Own{
+.boot_owned_properties{
   background-color: rgba(0,0,255,0.4);
 }
 .full_page{
@@ -62,14 +63,13 @@ img {
   width: 100%;
   height: 94%;
 }
-.player_1_col{
+.left_col{
   justify-content: flex-start;
   display: flex;
   flex-direction: column;
   width: 20%;
   border: 1px solid black;
   text-align: center;
-  background-color: rgba(255,0,0,0.4);
 }
 .game_col{
   display: flex;
@@ -82,7 +82,6 @@ img {
   width: 100%;
   height: 60px;
   text-align: center;
-/* padding-bottom: 100px; */
 }
 .board{
   display: flex;
@@ -92,7 +91,7 @@ img {
   height: 700px;
   align-self: center;
   margin-top: 20px;
-    background-color: white;
+  background-color: white;
  }
 .property:hover{
   transform: scale(1.6);
@@ -104,7 +103,7 @@ img {
   align-self: flex-start;
   width: 700px;
   height: 140px;
-  }
+}
 .board_top_left{
   width: 140px;
   height: 140px;
@@ -218,7 +217,7 @@ img {
   align-items: center;
   display: flex;
   flex-direction: column;
-  }
+}
 .board_mid_mid img {
   height: 200px;
   width: 200px;
@@ -239,7 +238,6 @@ img {
   border: 1px solid orchid;
   border-left-width: 15px;
   padding: 2px;
-
 }
 #whitehall{
   width: 100%;
@@ -330,7 +328,7 @@ img {
   border-top-width: 15px;
   padding: 2px;
 
-}*/
+}
 .board_bottom_right{
   border: 5px solid black;
 }
@@ -367,13 +365,12 @@ font-size: 15pt;
   right: 494px;
   font-size: 15pt;
 }
-.player_2_col{
+.right_col{
   display: flex;
   flex-direction: column;
   width: 20%;
   border: 1px solid black;
   text-align: center;
-  background-color: rgba(0,0,255,0.1);
 }
 .hidden{
   display: none;
@@ -382,11 +379,29 @@ li{
 text-align: left;
 font-size: 20pt;
 }
-
-/* #textbox{
-  text-align: center;
-  padding: 10px;
-} */
-/* .text{
-  height: 100px;
-} */
+.player_1_area {
+  border: 1px solid black;
+  height: 50%;
+  background-color: rgba(255,0,0,0.4);
+}
+.player_2_area {
+  border: 1px solid black;
+  height: 50%;
+  background-color: rgba(0,0,255,0.4);
+}
+.player_3_area {
+  border: 1px solid black;
+  height: 50%;
+  background-color: rgba(255,255,0,0.4)
+}
+.player_4_area {
+  border: 1px solid black;
+  height: 50%;
+  background-color: rgba(0,255,0,0.4)
+}
+.iron_owned_properties {
+background-color: rgba(255,255,0,0.4);
+}
+.gent_owned_properties {
+background-color: rgba(0,255,0,0.4);
+}

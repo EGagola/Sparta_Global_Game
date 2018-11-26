@@ -1,151 +1,95 @@
-var diceNum;
-var p1Pos = 0;
-var p2Pos = 0;
-var turnCount = 0;
-var p1Dollar = 1500;
-var p1TurnCount = 0;
-var p2TurnCount = 0;
-var p1Own = [];
-var p2Own = [];
-document.getElementById('player1_money').innerHTML= p1Dollar;
-var p2Dollar = 1500;
-document.getElementById('player2_money').innerHTML = p2Dollar;
+var turnCount = 0; // How many turns have passed
+var player_cycle_count = 0; // How many times a player has completed one circuit of the board
+players_array = []; // Array of player objects
+
+// Player constructor
+var Player = function(id,name,money,position,turn,idString,owned_properties,times_past_go){
+  this.id = id;
+  this.name = name;
+  this.money = money;
+  this.position = position;
+  this.turn = turn;
+  this.idString = idString;
+  this.owned_properties = owned_properties;
+  this.times_past_go = times_past_go;
+}
+
+// Creates players
+var player1 = new Player(1,"Hat Man",1500,0,0,"hat",[],0);
+players_array.push(player1);
+var player2 = new Player(2,"Booty McBootFace",1500,0,0,"boot",[],0);
+players_array.push(player2);
+var player3 = new Player(3,"Iron Man",1500,0,0,"iron",[],0);
+players_array.push(player3);
+var player4 = new Player(4,"Gentleman",1500,0,0,"gent",[],0);
+players_array.push(player4);
+
+// Sets starting money for each player
+updatePlayerMoney(player1);
+updatePlayerMoney(player2);
+updatePlayerMoney(player3);
+updatePlayerMoney(player4);
+
 document.addEventListener('DOMContentLoaded', function() {
-  makeTokens(0);
-var start = document.getElementById('startButton');
-start.addEventListener("click",function() { //On click of "Roll the dice!" this function happens
-  diceNum = Math.ceil(Math.random()*6); //Random number 1-6
-  document.getElementById('rollNum').innerHTML = diceNum; //Displays roll on screen
-  turnCount +=1; //Adds 1 to turn count
-  if (turnCount %2 == 1) {
-    p1Pos += diceNum;
-    p1TurnCount += 1;
-  }else if (turnCount %2 ==0) {
-        p2Pos += diceNum;
-        p2TurnCount +=1;
+  document.getElementById('player_turn').innerHTML = player1.name;
+  var start = document.getElementById('startButton');
+  start.addEventListener("click",function() {
+   // On click of "Roll the dice!" this function happens
+  turnCount += 1;
+  if (turnCount > 4) {
+    turnCount = 1;
+    player_cycle_count =+ 1;
   }
-  if (turnCount % 2 == 1) { //If odd turn count then it is player 1's turn
-    document.querySelector(".player_1_col").style.backgroundColor = "rgba(255,0,0,0.1)";
-    document.querySelector(".player_2_col").style.backgroundColor = "rgba(0,0,255,0.4)";
-    document.getElementById('player_turn').innerHTML = "2";
-    document.getElementById('startButton').style.backgroundColor = "blue";
-
-move(p1Pos);
-
-    if (posDataArray[p1Pos%24].owner == 0) {
-
-      if (p1Dollar >= posDataArray[p1Pos%24].cost) {
-        var P1ownerRequest = prompt("Would you like to buy this property?").toLowerCase();
-          if (P1ownerRequest == "yes") {
-            alert("You now own " + posDataArray[p1Pos%24].name);
-            posDataArray[p1Pos%24].owner += 1;
-            var propColorP1 = document.getElementsByClassName("property");
-            propColorP1[(p1Pos%24)].classList.add("p1Own");
-            p1Dollar -= posDataArray[p1Pos%24].cost;
-            document.getElementById('player1_money').innerHTML= p1Dollar;
-            p1Own.push(posDataArray[p1Pos%24].name)
-            p1Own.sort();
-            removeListP1();
-            makeListP1();
-            checkOwner();
-          }else if (P1ownerRequest == "no") {
-            alert("You have not bought the property");
-          }else {
-            alert("Invalid input, you don't deserve a property");
-          }
-      }else {
-        alert("You cannot afford this property")
-      }
-    }else if (posDataArray[p1Pos%24].owner == 2) {
-      alert("You owe " + posDataArray[p1Pos%24].payout + " Pounds")
-      p1Dollar -= posDataArray[p1Pos%24].payout;
-      p2Dollar += posDataArray[p1Pos%24].payout;
-      document.getElementById('player1_money').innerHTML= p1Dollar;
-      document.getElementById('player2_money').innerHTML= p2Dollar;
-      playAudio();
-      if (p1Dollar < 0) {
-        alert("Hat Man has run out of money! Booty McBootFace is the winner!")
-      }
-    }else if (posDataArray[p1Pos%24].owner == 3) {
-      p1Dollar += 20;
-      document.getElementById('player1_money').innerHTML= p1Dollar;
-      playAudio();
-
-    }else if (posDataArray[p1Pos%24].owner == 4) {
-      p1Dollar += 50;
-      document.getElementById('player1_money').innerHTML= p1Dollar;
-      playAudio();
-
-    } else if (posDataArray[p1Pos%24].owner ==5) {
-      p1Dollar -= 30;
-      document.getElementById('player1_money').innerHTML= p1Dollar;
-      if (p1Dollar < 0) {
-        alert("Hat Man has run out of money! Booty McBootFace is the winner!")
-      }
+    if (turnCount == 1) { // Turn count determines which player will perform actions
+      document.querySelector(".player_2_area").style.backgroundColor = "rgba(0,0,255,0.4)"; // Darkens player 2 area to indicate their turn
+      document.querySelector(".player_1_area").style.backgroundColor = "rgba(255,0,0,0.2)"; // Reverts player 1 area to standard shade
+      document.getElementById('player_turn').innerHTML = player2.name; // Displays current player turn name
+      document.getElementById('startButton').style.backgroundColor = "blue"; // Dice roll button becomes colour of player
+      diceRoll(player1); // Determines dice roll for player
+      move(player1); // Moves player to new spot on board and applies any location functions (e.g chance)
+      checkGo(player1); // Check if player passed go on their move
+      ownerCheck(player1); // Determines property actions if applicable
+    } else if (turnCount == 2) { // Repeat for other players
+      document.querySelector(".player_3_area").style.backgroundColor = "rgba(255,255,0,0.7)";
+      document.querySelector(".player_2_area").style.backgroundColor = "rgba(0,0,255,0.2)";
+      document.getElementById('player_turn').innerHTML = player3.name;
+      document.getElementById('startButton').style.backgroundColor = "yellow";
+      diceRoll(player2);
+      move(player2);
+      checkGo(player2);
+      ownerCheck(player2);
+    } else if (turnCount == 3) {
+      document.querySelector(".player_4_area").style.backgroundColor = "rgba(0,255,0,0.6)";
+      document.querySelector(".player_3_area").style.backgroundColor = "rgba(255,255,0,0.4)";
+      document.getElementById('player_turn').innerHTML = player4.name;
+      document.getElementById('startButton').style.backgroundColor = "green";
+      diceRoll(player3);
+      move(player3);
+      checkGo(player3);
+      ownerCheck(player3);
+    } else if (turnCount == 4) {
+      document.querySelector(".player_1_area").style.backgroundColor = "rgba(255,0,0,0.4)";
+      document.querySelector(".player_4_area").style.backgroundColor = "rgba(0,255,0,0.2)";
+      document.getElementById('player_turn').innerHTML = player1.name;
+      document.getElementById('startButton').style.backgroundColor = "red";
+      diceRoll(player4);
+      move(player4);
+      checkGo(player4);
+      ownerCheck(player4);
     }
-  } else if (turnCount % 2 == 0) { //If turn count even then it's player 1's turn
-    document.querySelector(".player_1_col").style.backgroundColor = "rgba(255,0,0,0.4)";
-    document.querySelector(".player_2_col").style.backgroundColor = "rgba(0,0,255,0.1)";
-    document.getElementById('player_turn').innerHTML = "1";
-    document.getElementById('startButton').style.backgroundColor = "red";
-
-move(p2Pos);
-    if (posDataArray[p2Pos%24].owner == 0) {
-      if (p2Dollar >= posDataArray[p2Pos%24].cost) {
-        var P2ownerRequest = prompt("Would you like to buy this property?").toLowerCase();
-        if (P2ownerRequest == "yes") {
-          alert("You now own " + posDataArray[p2Pos%24].name);
-          posDataArray[p2Pos%24].owner += 2;
-          var propColorP2 = document.getElementsByClassName("property");
-          propColorP2[(p2Pos%24)].classList.add("p2Own");
-          p2Dollar -= posDataArray[p2Pos%24].cost;
-          document.getElementById('player2_money').innerHTML = p2Dollar;
-          p2Own.push(posDataArray[p2Pos%24].name)
-          p2Own.sort();
-          removeListP2();
-          makeListP2();
-          checkOwner();
-        }else if (P2ownerRequest == "no") {
-          alert("Property not bought");
-        }else {
-        alert("Invalid input, you don't deserve a property");
-      }
-    }else {
-      alert("You cannot afford this property")
-    }
-  }else if (posDataArray[p2Pos%24].owner == 1) {
-      alert("You owe " + posDataArray[p2Pos%24].payout + " Pounds")
-      p2Dollar -= posDataArray[p2Pos%24].payout;
-      p1Dollar += posDataArray[p2Pos%24].payout;
-      document.getElementById('player2_money').innerHTML = p2Dollar;
-      document.getElementById('player1_money').innerHTML= p1Dollar;
-      if (p2Dollar < 0) {
-        alert("Booty McBootFace has run out of money! Hat Man is the winner!")
-      }
-  }else if (posDataArray[p2Pos%24].owner == 3) {
-    console.log("You just won £20!");
-    p2Dollar += 20;
-    document.getElementById('player2_money').innerHTML= p2Dollar;
-    playAudio();
-
-  }else if (posDataArray[p2Pos%24].owner == 4) {
-    p2Dollar += 200;
-    document.getElementById('player2_money').innerHTML= p2Dollar;
-    playAudio();
-
-  }else if (posDataArray[p2Pos%24].owner ==5) {
-    p2Dollar -= 30;
-    document.getElementById('player2_money').innerHTML= p2Dollar;
-    if (p2Dollar < 0) {
-      alert("Booty McBootFace has run out of money! Hat Man is the winner!")
-    }
-  }
-  }else {
-    console.log("Argghhhhh");
-  }
+  })
 })
-})
-var positionData = function(name,id,value,owner,cost,payout,pieces) {
+
+// Function that randomly generates a number between 1 and 6
+function diceRoll(player) {
+  var dice_number_rolled = Math.ceil(Math.random()*6); //Random number generator for integers 1-6
+  document.getElementById('rollNum').innerHTML = dice_number_rolled; //Displays roll on screen
+  player.position += dice_number_rolled;
+  player.turn += 1;
+}
+
+// Property constructor
+var positionData = function(name,id,value,owner,cost,payout,pieces,set_colour) {
   this.name = name;
   this.id = id;
   this.value = value;
@@ -153,598 +97,536 @@ var positionData = function(name,id,value,owner,cost,payout,pieces) {
   this.cost = cost;
   this.payout = payout;
   this.pieces = pieces;
+  this.set_colour = set_colour;
 }
-var posDataArray = [];
-var GO = new positionData("Go","go",0,4,0,0,0);
-posDataArray.push(GO);
-var OKR = new positionData("Old Kent Road","old_kent_road",1,0,60,15,0);
-posDataArray.push(OKR);
-var WCR = new positionData("Whitechapel Road","whitechapel_road",2,0,60,15,0);
-posDataArray.push(WCR);
-var AI = new positionData("Angel Islington","angel_islington",3,0,100,25,0);
-posDataArray.push(AI);
-var ER = new positionData("Euston Road","euston_road",4,0,100,25,0);
-posDataArray.push(ER);
-var PR = new positionData("Pentonville Road","pentonville_road",5,0,120,30,0);
-posDataArray.push(PR);
-var TR = new positionData("Top Right","top_right",6,6,0,0,0);
-posDataArray.push(TR);
-var PM = new positionData("Pall Mall","pall_mall",7,0,140,35,0);
-posDataArray.push(PM);
-var WH = new positionData("Whitehall","whitehall",8,0,140,35,0);
-posDataArray.push(WH);
-var NA = new positionData("Northumberland Avenue","northumberland_avenue",9,0,160,40,0);
-posDataArray.push(NA);
-var BS1 = new positionData("Bow Street","bow_street",10,0,180,45,0);
-posDataArray.push(BS1);
-var MS = new positionData("Marlborough Street","marlborough_street",11,0,180,45,0);
-posDataArray.push(MS);
-var BR = new positionData("Bottom Right","bottom_right",12,5,0,0,0);
-posDataArray.push(BR);
-var S = new positionData("Strand","strand",13,0,220,55,0);
-posDataArray.push(S);
-var FS = new positionData("Fleet Street","fleet_street",14,0,220,55,0);
-posDataArray.push(FS);
-var TS = new positionData("Trafalgar Square","trafalgar_square",15,0,240,60,0);
-posDataArray.push(TS);
-var LS = new positionData("Leicester Square","leicester_square",16,0,260,65,0);
-posDataArray.push(LS);
-var P = new positionData("Picadilly","picadilly",17,0,280,70,0);
-posDataArray.push(P);
-var BL = new positionData("Bottom Left","bottom_left",18,6,0,0,0);
-posDataArray.push(BL);
-var RS = new positionData("Regent Street","regent_street",19,0,300,75,0);
-posDataArray.push(RS);
-var OS = new positionData("Oxford Street","oxford_street",20,0,300,75,0);
-posDataArray.push(OS);
-var BS2 = new positionData("Bond Street","bond_street",21,0,320,80,0);
-posDataArray.push(BS2);
-var PL = new positionData("Park Lane","park_lane",22,0,350,90,0);
-posDataArray.push(PL);
-var M = new positionData("Mayfair","mayfair",23,0,400,100,0);
-posDataArray.push(M);
-var pieces=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-function changePieceValue(number) {
-  if (turnCount % 2 == 1) {
-    pieces[number] += 1;
-    // posDataArray[(number-diceNum)] -= 1;
-  } else if (turnCount % 2 == 0) {
-    var newToken = document.createElement('img');
-    pieces[number] += 2;
-    // posDataArray[(number-diceNum)] -= 2;
+
+// Creating information for each location on the board and pushing them to board_location_array
+var board_location_array = [];
+var GO = new positionData("Go","go",0,4,0,0,0,"n/a");
+board_location_array.push(GO);
+var OKR = new positionData("Old Kent Road","old_kent_road",1,0,60,15,0,"Brown");
+board_location_array.push(OKR);
+var WCR = new positionData("Whitechapel Road","whitechapel_road",2,0,60,15,0,"Brown");
+board_location_array.push(WCR);
+var AI = new positionData("Angel Islington","angel_islington",3,0,100,25,0,"Light Blue");
+board_location_array.push(AI);
+var ER = new positionData("Euston Road","euston_road",4,0,100,25,0,"Light Blue");
+board_location_array.push(ER);
+var PR = new positionData("Pentonville Road","pentonville_road",5,0,120,30,0,"Light Blue");
+board_location_array.push(PR);
+var TR = new positionData("Top Right","top_right",6,6,0,0,0,"n/a");
+board_location_array.push(TR);
+var PM = new positionData("Pall Mall","pall_mall",7,0,140,35,0,"Light Purple");
+board_location_array.push(PM);
+var WH = new positionData("Whitehall","whitehall",8,0,140,35,0,"Light Purple");
+board_location_array.push(WH);
+var NA = new positionData("Northumberland Avenue","northumberland_avenue",9,0,160,40,0,"Light Purple");
+board_location_array.push(NA);
+var BS1 = new positionData("Bow Street","bow_street",10,0,180,45,0,"Orange");
+board_location_array.push(BS1);
+var MS = new positionData("Marlborough Street","marlborough_street",11,0,180,45,0,"Orange");
+board_location_array.push(MS);
+var BR = new positionData("Bottom Right","bottom_right",12,5,0,0,0,"n/a");
+board_location_array.push(BR);
+var S = new positionData("Strand","strand",13,0,220,55,0,"Red");
+board_location_array.push(S);
+var FS = new positionData("Fleet Street","fleet_street",14,0,220,55,0,"Red");
+board_location_array.push(FS);
+var TS = new positionData("Trafalgar Square","trafalgar_square",15,0,240,60,0,"Red");
+board_location_array.push(TS);
+var LS = new positionData("Leicester Square","leicester_square",16,0,260,65,0,"Yellow");
+board_location_array.push(LS);
+var P = new positionData("Picadilly","picadilly",17,0,280,70,0,"Yellow");
+board_location_array.push(P);
+var BL = new positionData("Bottom Left","bottom_left",18,6,0,0,0,"n/a");
+board_location_array.push(BL);
+var RS = new positionData("Regent Street","regent_street",19,0,300,75,0,"Green");
+board_location_array.push(RS);
+var OS = new positionData("Oxford Street","oxford_street",20,0,300,75,0,"Green");
+board_location_array.push(OS);
+var BS2 = new positionData("Bond Street","bond_street",21,0,320,80,0,"Green");
+board_location_array.push(BS2);
+var PL = new positionData("Park Lane","park_lane",22,0,350,90,0,"Dark Purple");
+board_location_array.push(PL);
+var M = new positionData("Mayfair","mayfair",23,0,400,100,0,"Dark Purple");
+board_location_array.push(M);
+
+// Starting piece value for each position
+var pieces_array=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+// Adds to pieces array for value of each player piece
+function changePieceValue(board_position) {
+  if (turnCount == 1) {
+    pieces_array[board_position] += 1; // Player 1 token has a value of 1
+  } else if (turnCount == 2) {
+    pieces_array[board_position] += 2; // Player 2 token has a value of 2
+  } else if (turnCount == 3) {
+    pieces_array[board_position] += 4; // Player 3 token has a value of 4
+  } else if (turnCount == 4) {
+    pieces_array[board_position] += 8; // Player 4 token has a value of 8
   }
 }
-function makeTokens(number) {
+
+// Function to display player tokens after dice roll
+function makeTokens(board_position) {
   if (turnCount > 0) {
-    if (turnCount%2 ==1) {
-
-      if (posDataArray[number].pieces == (pieces[number]-1)) {
-        var element = document.getElementsByClassName("doggoimg hidden");
-        element[number].classList.remove("hidden");
-        posDataArray[number].pieces = pieces[number];
-
-      }else if (posDataArray[number].pieces == (pieces[number]-2)) {
-        var element = document.getElementsByClassName("boatimg hidden");
-          element[number].classList.remove("hidden");
-          posDataArray[number].pieces = pieces[number];
-
-
-      }else if (posDataArray[number].pieces == (pieces[number]-3)) {
-        var element1 = document.getElementsByClassName("doggoimg");
-        element1[number].classList.remove("hidden");
-        var element2 = document.getElementsByClassName("boatimg");
-        element2[number].classList.remove("hidden");
-        posDataArray[number].pieces = pieces[number];
-        console.log(posDataArray[number].pieces + "2Number 1 to be checked");
-        console.log(pieces[number] + "2Number 2 to be checked");
-
-    }} else if (turnCount%2 ==0) {
-      if (posDataArray[number].pieces == (pieces[number]-1)) {
-        var element = document.getElementsByClassName("doggoimg hidden");
-        element[number].classList.remove("hidden");
-
-        posDataArray[number].pieces = pieces[number];
-
-
-
-      }else if (posDataArray[number].pieces == (pieces[number]-2)) {
-        var element = document.getElementsByClassName("boatimg hidden");
-          element[number].classList.remove("hidden");
-          posDataArray[number].pieces = pieces[number];
-
-
-
-      }else if (posDataArray[number].pieces == (pieces[number]-3)) {
-        var element1 = document.getElementsByClassName("doggoimg");
-        element1[number].classList.remove("hidden");
-        var element2 = document.getElementsByClassName("boatimg");
-        element2[number].classList.remove("hidden");
-        posDataArray[number].pieces = pieces[number];
-
-
+    if (pieces_array[board_position] >= 8) { // Checks if player 4 token on current board position
+      var element1 = document.getElementsByClassName('gentIcon hidden');
+      element1[board_position].classList.remove('hidden'); // Removes hidden attribute of player 4
+      pieces_array[board_position] -= 8 // Removes player 4 piece value from position
+    }
+    if (pieces_array[board_position] >= 4) { // Repeat for other player tokens
+      var element1 = document.getElementsByClassName('ironIcon hidden');
+      element1[board_position].classList.remove('hidden');
+      pieces_array[board_position] -= 4
+    }
+    if (pieces_array[board_position] >= 2) {
+      var element1 = document.getElementsByClassName('bootIcon hidden');
+      element1[board_position].classList.remove('hidden');
+      pieces_array[board_position] -= 2
+    }
+    if (pieces_array[board_position] >= 1) {
+      var element1 = document.getElementsByClassName('hatIcon hidden');
+      element1[board_position].classList.remove('hidden');
+      pieces_array[board_position] -= 1
     }
   }
-  }}
+}
+
+// Function that updates the HTML display for player money
+function updatePlayerMoney(player) {
+  document.getElementById(player.idString + '_money').innerHTML= player.money;
+}
 
 var elem1 = [];
 var elem2 = [];
-// var prevPos1 = p1Pos - diceNum;
-// var prevPos2 = p2Pos - diceNum;
-function deleteTokens() {
-  if (turnCount >2) {
-    for (var i = 0; i < posDataArray.length; i++) {
-      if (posDataArray[i].pieces == pieces[i]) {
-        if (turnCount%2 ==1) {
-          elem1[i] = document.getElementsByClassName("doggoimg");
-          elem1[0][i].classList.add('hidden');
-        } else if (turnCount%2 ==0) {
-          elem2[i] = document.getElementsByClassName('boatimg');
-        elem2[0][i].classList.add("hidden");
+var elem3 = [];
+var elem4 = [];
+
+// Function that hides tokens from previous position
+function hide_character_icon() {
+  if (player_cycle_count > 0) {
+    for (var i = 0; i < board_location_array.length; i++) { // Checks every position on board
+      if (board_location_array[i].pieces == pieces_array[i]) { // Checks value of pieces array against board_location_array piece value
+        if (turnCount == 1) { // If turn count is 1 then player 1 icon has moved so previous needs to be hidden
+          elem1[i] = document.getElementsByClassName("hatIcon");
+          elem1[0][i].classList.add('hidden'); // Adds hidden class to icon
+        } else if (turnCount == 2) { // If turn count is 2 then player 2's icon needs to be hidden etc
+          elem2[i] = document.getElementsByClassName('bootIcon');
+          elem2[0][i].classList.add("hidden");
+      } else if (turnCount == 3) {
+          elem3[i] = document.getElementsByClassName('ironIcon');
+          elem3[0][i].classList.add("hidden");
+      } else if (turnCount == 4) {
+          elem4[i] = document.getElementsByClassName('gentIcon');
+          elem4[0][i].classList.add("hidden");
         }
       }
     }
   }
-};
-
-function removeListP1() {
-  var listElemP1 = document.getElementsByClassName('list1')
-  listElemP1[0].parentNode.removeChild(listElemP1[0]);
-  // listElemP1[1].parentNode.removeChild(listElemP1[0]);
-
 }
-function removeListP2() {
-  var listElemP2 = document.getElementsByClassName('list2');
-    listElemP2[0].parentNode.removeChild(listElemP2[0]);
+
+// Function to check which player owns property on tile player lands on
+function ownerCheck(player) {
+  if (board_location_array[player.position % 24].owner == 0){ // If owner value is 0 property is unowned
+    property_purchase_request(player); // Calls function that gives player the opportunity to purchase property
+  }else if (board_location_array[player.position % 24].owner == player.id) { // Checks if the current player owns the property
+    alert('You already own this property');
+  }else if (board_location_array[player.position % 24].owner != player.id && board_location_array[player.position % 24].owner <= players_array.length) { // Checks if property owned by another player
+    alert('You owe ' + players_array[(board_location_array[player.position % 24].owner -1)].name + ' ' + board_location_array[player.position % 24].payout + ' pounds.')
+    payment(player , board_location_array[player.position % 24].owner); // Calls payment function
+  }
 }
+
+// Function that gives player chance to buy property
+function property_purchase_request(player) {
+  if (player.money >= board_location_array[player.position % 24].cost) { // Check to see if player has enough money to buy property
+    var property_purchase_result = window.confirm('Would you like to buy this property?'); // Confirmation box for player, "Ok" gives true output, "Cancel" gives false output
+    if (property_purchase_result == false) { // False means player doesn't buy property
+      alert('You did not buy ' + board_location_array[player.position % 24].name);
+    } else if (property_purchase_result == true) { // True means player purchases property
+      alert("You now own " + board_location_array[player.position % 24].name);
+      board_location_array[player.position % 24].owner = player.id;
+      var propColor = document.getElementsByClassName("property");
+      propColor[(player.position % 24)].classList.add(player.idString + "_owned_properties"); // Changes colour of tile to match player colour
+      player.money -= board_location_array[player.position % 24].cost;
+      updatePlayerMoney(player)
+      player.owned_properties.push(board_location_array[player.position % 24].name) // Makes array of all properties owned by player
+      player.owned_properties.sort();
+      removeList(player);
+      makeList(player);
+      setCheck(player);
+    }
+  }else { // If player cannot afford property
+    alert('You cannot afford ' + board_location_array[player.position % 24].name);
+  }
+}
+
+// Function that makes payment from one player to another
+function payment(player, property_owner) {
+  for (var i = 0; i < players_array.length; i++) {
+    if (players_array[i].id == property_owner) { // Checks which player owns the property
+      players_array[i].money += board_location_array[player.position % 24].payout; // Owner gains rental money
+      player.money -= board_location_array[player.position % 24].payout; // Current player loses money
+      document.getElementById(players_array[i].idString + '_money').innerHTML = players_array[i].money;
+      updatePlayerMoney(player);
+      deathCheck(player);
+    }
+  }
+}
+
+// Function that removes the previous list of owned properties
+function removeList(player) {
+  var listElem = document.getElementsByClassName(`list${player.id}`)
+  listElem[0].parentNode.removeChild(listElem[0]);
+}
+
+// Audio file ID's
+var w = document.getElementById('iframeAudio');
 var y =document.getElementById("sadAudio");
 var x = document.getElementById("myAudio");
+var z = document.getElementById("carhorn");
+
+// Functions to play various audio cues
 function playSadAudio() {
   y.play();
 }
+
 function playAudio() {
-    x.play();
+  x.play();
 }
-var z = document.getElementById("carhorn");
-var w = document.getElementById('iframeAudio');
+
 function playcarAudio() {
   x.play();
 }
+
 function stopBackMusic() {
   w.stop();
 }
-function displayResult() {
-  if (ResultCollector.capture === true) {
-    docum
+
+// Function that generates owned property lists for each player
+function makeList(player) {
+  player_property_array = `${player.idString}_owned_properties` // Make the list
+  var listElement = document.createElement('ul');
+  listElement.classList.add(`list${player.id}`);
+  document.getElementById(`p${player.id}Property`).appendChild(listElement); // Add it to the page
+  var numberOfListItems = player.owned_properties.length;  // Set up a loop that goes through the items in listItems one at a time
+  for (var i = 0; i < numberOfListItems; ++i) {
+    var listItem = document.createElement('li'); // create an item for each one
+    listItem.innerHTML = player.owned_properties[i]; // Add the item text
+    listElement.appendChild(listItem); // Add listItem to the listElement
   }
 }
-function makeListP1() {
-    // Make the list
-    var listElementP1 = document.createElement('ul');
-    listElementP1.classList.add("list1");
 
-    // Add it to the page
-    document.getElementById('p1Property').appendChild(listElementP1);
-
-    // Set up a loop that goes through the items in listItems one at a time
-    var numberOfListItems1 = p1Own.length;
-
-    for (var i = 0; i < numberOfListItems1; ++i) {
-        // create an item for each one
-        var listItem1 = document.createElement('li');
-        console.log(listItem1);
-        // Add the item text
-        listItem1.innerHTML = p1Own[i];
-
-        // Add listItem to the listElement
-        listElementP1.appendChild(listItem1);
-    }
+// Function that checks if a player has run out of money
+function deathCheck(player) {
+  if (player.money < 0) {
+    alert(`${player.name} has run out of money!`)
+  }
 }
-function makeListP2() {
-    // Make the list
-    var listElementP2 = document.createElement('ul');
-    listElementP2.classList.add("list2");
 
-    // Add it to the page
-    document.getElementById('p2Property').appendChild(listElementP2);
-
-    // Set up a loop that goes through the items in listItems one at a time
-    var numberOfListItems2 = p2Own.length;
-
-    for (var i = 0; i < numberOfListItems2; ++i) {
-        // create an item for each one
-        var listItem2 = document.createElement('li');
-        console.log(listItem2);
-        // Add the item text
-        listItem2.innerHTML = p2Own[i];
-
-        // Add listItem to the listElement
-        listElementP2.appendChild(listItem2);
-    }
-}
+// Function that shows instructions when the "Instructions" button is pressed
 function instructions() {
 alert("MONOPOLY is the game of buying, renting or selling Properties so profitably that players increase their wealth – the wealthiest becoming the eventual winner. Starting from the GO space, move your token around the board according to your roll of the dice. When you land on a Property that is not already owned by anyone else, you may buy it from the Bank. Players who own Properties collect rents from opponents stopping there. On player turn, roll the dice, if you land on an unowned property: Decide whether to buy the property. If you own all properties of the same colour, all properties become twice as valuable and the rent doubles. If you land on a chance card a card will be randomly selected and it's effects will be automatically applied. If you land on your opponents property, you will pay them the value of the rent for that tile.");
 }
-function landAlert(number) {
-  alert(`You have landed on ${posDataArray[number].name} which costs £${posDataArray[number].cost} and will return £${posDataArray[number].payout} in rent.`)
+
+// Function that tells the player which property they have landed on and gives relevant information
+function landAlert(position) {
+  alert(`You have landed on ${board_location_array[position].name} which costs £${board_location_array[position].cost} and will return £${board_location_array[position].payout} in rent.`)
 }
-function move(position) {
-  switch (position % 24) {
-    case 1:
-        changePieceValue(1);
-        deleteTokens();
-        makeTokens(1);
-        landAlert(1);
-      break;
+
+// Function that runs all functions that relate to player movement
+function move(player) {
+  switch (player.position % 24) {
+    case 1: // Case for location 1 on the board
+      changePieceValue(1); // Adjusts piece value for tile landed on
+      hide_character_icon(); // Removes previous player icon
+      makeTokens(1); // Shows current location icon
+      landAlert(1); // Shows relevant information
+    break;
     case 2:
-        changePieceValue(2);
-        deleteTokens();
-        makeTokens(2);
-        landAlert(2);
-      break;
+      changePieceValue(2);
+      hide_character_icon();
+      makeTokens(2);
+      landAlert(2);
+    break;
     case 3:
-        changePieceValue(3);
-        deleteTokens();
-        makeTokens(3);
-        landAlert(3);
-      break;
+      changePieceValue(3);
+      hide_character_icon();
+      makeTokens(3);
+      landAlert(3);
+    break;
     case 4:
-        changePieceValue(4);
-        deleteTokens();
-        makeTokens(4);
-        landAlert(4);
-      break;
+      changePieceValue(4);
+      hide_character_icon();
+      makeTokens(4);
+      landAlert(4);
+    break;
     case 5:
-        changePieceValue(5);
-        deleteTokens();
-        makeTokens(5);
-        landAlert(5);
-      break;
+      changePieceValue(5);
+      hide_character_icon();
+      makeTokens(5);
+      landAlert(5);
+    break;
     case 6:
-        changePieceValue(6);
-        deleteTokens();
-        makeTokens(6);
-        chance();
-      break;
+      changePieceValue(6);
+      hide_character_icon();
+      makeTokens(6);
+      chance(player);
+    break;
     case 7:
-        changePieceValue(7);
-        deleteTokens();
-        makeTokens(7);
-        landAlert(7);
-      break;
+      changePieceValue(7);
+      hide_character_icon();
+      makeTokens(7);
+      landAlert(7);
+    break;
     case 8:
-        changePieceValue(8);
-        deleteTokens();
-        makeTokens(8);
-        landAlert(8);
-      break;
+      changePieceValue(8);
+      hide_character_icon();
+      makeTokens(8);
+      landAlert(8);
+    break;
     case 9:
-        changePieceValue(9);
-        deleteTokens();
-        makeTokens(9);
-        landAlert(9);
-      break;
+      changePieceValue(9);
+      hide_character_icon();
+      makeTokens(9);
+      landAlert(9);
+    break;
     case 10:
-        changePieceValue(10);
-        deleteTokens();
-        makeTokens(10);
-        landAlert(10);
-      break;
+      changePieceValue(10);
+      hide_character_icon();
+      makeTokens(10);
+      landAlert(10);
+    break;
     case 11:
-        changePieceValue(11);
-        deleteTokens();
-        makeTokens(11);
-        landAlert(11);
-      break;
+      changePieceValue(11);
+      hide_character_icon();
+      makeTokens(11);
+      landAlert(11);
+    break;
     case 12:
-        changePieceValue(12);
-        deleteTokens();
-        makeTokens(12);
-        alert("Your car breaks down, pay £30 in repairs")
-        playSadAudio();
-      break;
+      changePieceValue(12);
+      hide_character_icon();
+      makeTokens(12);
+      breakdown(player);
+      playSadAudio();
+    break;
     case 13:
-        changePieceValue(13);
-        deleteTokens();
-        makeTokens(13);
-        landAlert(13);
-      break;
+      changePieceValue(13);
+      hide_character_icon();
+      makeTokens(13);
+      landAlert(13);
+    break;
     case 14:
-        changePieceValue(14);
-        deleteTokens();
-        makeTokens(14);
-        landAlert(14);
-      break;
+      changePieceValue(14);
+      hide_character_icon();
+      makeTokens(14);
+      landAlert(14);
+    break;
     case 15:
-        changePieceValue(15);
-        deleteTokens();
-        makeTokens(15);
-        landAlert(15);
-      break;
+      changePieceValue(15);
+      hide_character_icon();
+      makeTokens(15);
+      landAlert(15);
+    break;
     case 16:
-        changePieceValue(16);
-        deleteTokens();
-        makeTokens(16);
-        landAlert(16);
-      break;
+      changePieceValue(16);
+      hide_character_icon();
+      makeTokens(16);
+      landAlert(16);
+    break;
     case 17:
-        changePieceValue(17);
-        deleteTokens();
-        makeTokens(17);
-        landAlert(17);
-      break;
+      changePieceValue(17);
+      hide_character_icon();
+      makeTokens(17);
+      landAlert(17);
+    break;
     case 18:
-        changePieceValue(18);
-        deleteTokens();
-        makeTokens(18);
-        alert("Free Parking! Pay nothing this turn");
-        playcarAudio();
-      break;
+      changePieceValue(18);
+      hide_character_icon();
+      makeTokens(18);
+      alert("Free Parking! Pay nothing this turn");
+      playcarAudio();
+    break;
     case 19:
-        changePieceValue(19);
-        deleteTokens();
-        makeTokens(19);
-        landAlert(19);
-      break;
+      changePieceValue(19);
+      hide_character_icon();
+      makeTokens(19);
+      landAlert(19);
+    break;
     case 20:
-        changePieceValue(20);
-        deleteTokens();
-        makeTokens(20);
-        landAlert(20);
-      break;
+      changePieceValue(20);
+      hide_character_icon();
+      makeTokens(20);
+      landAlert(20);
+    break;
     case 21:
-        changePieceValue(21);
-        deleteTokens();
-        makeTokens(21);
-        landAlert(21);
-      break;
+      changePieceValue(21);
+      hide_character_icon();
+      makeTokens(21);
+      landAlert(21);
+    break;
     case 22:
-        changePieceValue(22);
-        deleteTokens();
-        makeTokens(22);
-        landAlert(22);
-      break;
+      changePieceValue(22);
+      hide_character_icon();
+      makeTokens(22);
+      landAlert(22);
+    break;
     case 23:
-        changePieceValue(23);
-        deleteTokens();
-        makeTokens(23);
-        landAlert(23);
-      break;
+      changePieceValue(23);
+      hide_character_icon();
+      makeTokens(23);
+      landAlert(23);
+    break;
     case 0:
-        changePieceValue(0);
-        deleteTokens();
-        makeTokens(0);
-        alert("You landed on Go and gain £200!")
-        if (turnCount%2 == 1) {
-          p1Dollar += 200;
-          document.getElementById('player1_money').innerHTML = p1Dollar;
-        } else {
-          p2Dollar += 200;
-          document.getElementById('player2_money').innerHTML = p2Dollar;
-        }
-      break;
+      changePieceValue(0);
+      hide_character_icon();
+      makeTokens(0);
+    break;
     default:
-    console.log("Don't move");
+    alert("Something went wrong. Don't move");
   }
 }
-function chance() {
-  var rand = Math.floor(Math.random()*chances.length)
+
+// Function that controls chance cards
+function chance(player) {
+  var rand = Math.floor(Math.random()*chances.length) // Generates random number based on how many posibilities there are to get
   alert(`${chances[rand]}`)
-  switch (rand) {
-    case 1:
-      if (p2Pos%24 == 6) {
-        p2Dollar -= 60;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
+  switch (rand) { // Switch case for each posibility
+    case 0:
+      if (player.position % 24 == 6 && turnCount % player.id == 0) {
+        player.money -= 60;
+        updatePlayerMoney(player)
         playSadAudio()
-        if (p2Dollar <0) {
-          alert("Booty McBootFace has run out of money! Hat Man is the winner!")
-        }
-      }else if (p1Pos%24 == 6){
-        p1Dollar -= 60;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
-        playSadAudio()
-        if (p1Dollar < 0) {
-          alert("Hat Man has run out of money! Booty McBootFace is the winner!")
-        }
+        deathCheck(player);
       }
     break;
-    break;
     case 1:
-      if (p2Pos%24 == 6) {
-        p2Dollar += 1;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
-        playAudio()
-      }else if (p1Pos%24 == 6){
-        p1Dollar += 1;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
+      if (player.position % 24 == 6 && turnCount % player.id == 0) {
+        player.money += 1;
+        updatePlayerMoney(player)
         playAudio()
       }
     break;
     case 2:
-      if (p2Pos%24 == 6) {
-        p2Dollar += 200;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
+      if (player.position%24 == 6 && turnCount % player.id == 0) {
+        player.money += 200;
+        updatePlayerMoney(player)
         playAudio();
-
-      }else if (p1Pos%24 == 6){
-        p1Dollar += 200;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
-        playAudio();
-
       }
     break;
     case 3:
-      if (p2Pos%24 == 6) {
-        p2Dollar += 20;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
+      if (player.position%24 == 6 && turnCount % player.id == 0) {
+        player.money += 20;
+        updatePlayerMoney(player)
         playAudio();
-
-      }else if (p1Pos%24 == 6){
-        p1Dollar += 20;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
-        playAudio();
-
       }
     break;
     case 4:
-      if (p2Pos%24 == 6) {
-        p2Dollar += 100;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
+      if (player.position % 24 == 6 && turnCount % player.id == 0) {
+        player.money += 100;
+        updatePlayerMoney(player)
         playAudio();
-
-      }else if (p1Pos%24 == 6){
-        p1Dollar += 100;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
-        playAudio();
-
       }
     break;
     case 5:
-    if (p2Pos%24 == 6) {
-      p2Dollar -= 100;
-      document.getElementById('player2_money').innerHTML = p2Dollar;
-      playSadAudio();
-      if (p2Dollar < 0 ) {
-        alert("Booty McBootFace has run out of money! Hat Man is the winner!")
-
-      }
-      } else if (p1Pos%24 == 6){
-        p1Dollar -= 100;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
+      if (player.position % 24 == 6 && turnCount % player.id == 0) {
+        player.money -= 100;
+        updatePlayerMoney(player)
         playSadAudio();
-      }      if (p1Dollar < 0) {
-              alert("Hat Man has run out of money! Booty McBootFace is the winner!")
-            }
+        deathCheck(player);
+      }
     break;
     case 6:
-      if (p2Pos%24 == 6) {
-        p2Dollar -= 50;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
+      if (player.position % 24 == 6 && turnCount % player.id == 0) {
+        player.money -= 50;
+        updatePlayerMoney(player)
         playSadAudio()
-        if (p2Dollar <0) {
-          alert("Booty McBootFace has run out of money! Hat Man is the winner!")
-        }
-      }else if (p1Pos%24 == 6){
-        p1Dollar -= 50;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
-        playSadAudio()
-        if (p1Dollar < 0) {
-          alert("Hat Man has run out of money! Booty McBootFace is the winner!")
-        }
+        deathCheck(player);
       }
     break;
-    case 7:
-      if (p2Pos%24 == 6) {
-        p2Dollar += 50;
-        p1Dollar -= 50;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
+    case 7: //Figure this out
+      if (player.position % 24 == 6) {
+        player2.money += 50;
+        player1.money -= 50;
+        document.getElementById('boot_money').innerHTML = player2.money;
+        document.getElementById('hat_money').innerHTML = player1.money;
         playAudio();
-        if (p1Dollar < 0) {
-          alert("Hat Man has run out of money! Booty McBootFace is the winner!")
-        }
-      }else if (p1Pos%24 == 6){
-        p1Dollar += 50;
-        p2Dollar -=50;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
+        deathCheck(player1);
+      }else if (player1.position % 24 == 6){
+        player1.money += 50;
+        player2.money -=50;
+        document.getElementById('hat_money').innerHTML = player1.money;
+        document.getElementById('boot_money').innerHTML = player2.money;
         playAudio();
-        if (p2Dollar <0) {
-          alert("Booty McBootFace has run out of money! Hat Man is the winner!")
-        }
+        deathCheck(player2);
       }
     break;
     case 8:
-      if (p2Pos%24 == 6) {
-        p2Dollar -= 10;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
+      if (player.position % 24 == 6 && turnCount % player.id == 0) {
+        player.money -= 10;
+        updatePlayerMoney(player)
         playSadAudio();
-        if (p2Dollar < 0) {
-          alert("Booty McBootFace has run out of money! Hat Man is the winner!")
-        }
-      }else if (p1Pos%24 == 6){
-        p1Dollar -= 10;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
-        playSadAudio();
-      }      if (p1Dollar < 0) {
-              alert("Hat Man has run out of money! Booty McBootFace is the winner!")
-            }
+        deathCheck(player);
+      }
     break;
     case 9:
-      if (p2Pos%24 == 6) {
-        p2Dollar -= 300;
-        document.getElementById('player2_money').innerHTML = p2Dollar;
+      if (player.position % 24 == 6 && turnCount % player.id == 0) {
+        player.money -= 300;
+        updatePlayerMoney(player)
         playSadAudio();
-        if (p2Dollar < 0) {
-        alert("Booty McBootFace has run out of money! Hat Man is the winner!")
-        }
-      }else if (p1Pos%24 == 6){
-        p1Dollar -= 300;
-        document.getElementById('player1_money').innerHTML = p1Dollar;
-        playSadAudio();
-      }      if (p1Dollar < 0) {
-              alert("Hat Man has run out of money! Booty McBootFace is the winner!")
-            }
+        deathCheck(player);
+      }
     break;
     default:
-
   }
 }
+
 var chances = ["Chance card! Your neighbour complains that your new extension obstructs light to their property, pay £60 in reparations","Chance card! You come in second place in a beauty contest, win £1!","Chance card! Bank error in your favour, gain £200!","Chance card! Tax refund, claim £20","Chance card! You inherit £100 from a distant relative's death", "Chance card! You mistakenly invest in a Nigerian prince, lose £100","Chance card! Hospital fees, pay £50","Chance card! It's your birthday! Take £50 from the other player!","Chance card! Parking fine pay £10","Chance card! All of your money was invested in the Leyman Brothers, you lose £300"];
-var brown =0;
-var lb = 0;
-var lp =0;
-var orange = 0;
-var red = 0;
-var yellow = 0;
-var green = 0;
-var purple =0;
-function checkOwner() {
-  if (posDataArray[1].owner == posDataArray[2].owner && posDataArray[1].owner != 0 && brown == 0) {
-    posDataArray[1].payout = (posDataArray[1].payout*2);
-    posDataArray[2].payout = (posDataArray[2].payout*2);
-    alert("You have completed the brown set. Rent for these properties is doubled");
-    brown++;
-  }else if (posDataArray[3].owner == posDataArray[4].owner && posDataArray[4].owner == posDataArray[5].owner && posDataArray[3].owner !=0 && lb ==0) {
-    posDataArray[3].payout = (posDataArray[3].payout*2);
-    posDataArray[4].payout = (posDataArray[4].payout*2);
-    posDataArray[5].payout = (posDataArray[5].payout*2);
-    alert("You have completed the light blue set. Rent for these properties is doubled");
-    lb++;
-  }else if (posDataArray[7].owner == posDataArray[8].owner && posDataArray[8].owner == posDataArray[9].owner && posDataArray[7].owner !=0 && lp ==0) {
-    posDataArray[7].payout = (posDataArray[7].payout*2);
-    posDataArray[8].payout = (posDataArray[8].payout*2);
-    posDataArray[9].payout = (posDataArray[9].payout*2);
-    alert("You have completed the light purple set. Rent for these properties is doubled");
-    lp++;
-  }else if (posDataArray[10].owner == posDataArray[11].owner && posDataArray[10].owner !=0 && orange == 0) {
-    posDataArray[10].payout = (posDataArray[10].payout*2);
-    posDataArray[11].payout = (posDataArray[11].payout*2);
-    alert("You have completed the orange set. Rent for these properties is doubled");
-    orange++;
-  }else if (posDataArray[13].owner == posDataArray[14].owner && posDataArray[14].owner == posDataArray[15].owner && posDataArray[13].owner !=0 && red ==0) {
-    posDataArray[13].payout = (posDataArray[13].payout*2);
-    posDataArray[14].payout = (posDataArray[14].payout*2);
-    posDataArray[15].payout = (posDataArray[15].payout*2);
-    alert("You have completed the red set. Rent for these properties is doubled");
-    red++;
-  }else if (posDataArray[16].owner == posDataArray[17].owner && posDataArray[17].owner !=0 && yellow ==0) {
-    posDataArray[16].payout = (posDataArray[16].payout*2);
-    posDataArray[17].payout = (posDataArray[17].payout*2);
-    alert("You have completed the yellow set. Rent for these properties is doubled");
-    yellow++;
-  }else if (posDataArray[19].owner == posDataArray[20].owner && posDataArray[20].owner == posDataArray[21].owner && posDataArray[19].owner !=0 && green ==0) {
-    posDataArray[19].payout = (posDataArray[19].payout*2);
-    posDataArray[20].payout = (posDataArray[20].payout*2);
-    posDataArray[21].payout = (posDataArray[21].payout*2);
-    alert("You have completed the green set. Rent for these properties is doubled");
-    green++;
-  }else if (posDataArray[22].owner == posDataArray[23].owner && posDataArray[22].owner !=0 && purple ==0) {
-    posDataArray[22].payout = (posDataArray[22].payout*2);
-    posDataArray[23].payout = (posDataArray[23].payout*2);
-    alert("You have completed the dark purple set. Rent for these properties is doubled");
-    purple++;
+
+
+// Function that occurs when a player lands on the breakdown tile
+function breakdown(player) {
+  alert("Your car breaks down, pay £30 in repairs")
+  player.money -= 30;
+  updatePlayerMoney(player)
+  deathCheck(player);
+}
+
+// Function that checks if all properties are owned by the same player, and if so, doubles their rental value
+function setCheck(player) {
+  var total_in_set = 0;
+  var owned_in_set = 0;
+  for (var i = 0; i < board_location_array.length; i++) {
+    if (board_location_array[i].set_colour == board_location_array[player.position % 24].set_colour) {
+      total_in_set += 1; // Finds how many properties are in the set
+    }
+    if (board_location_array[i].set_colour == board_location_array[player.position % 24].set_colour && board_location_array[i].owner == player.id) {
+      owned_in_set += 1; // Finds out how many properties the current player owns
+    }
   }
-}function reload() {
+  if (owned_in_set == total_in_set) { // If equal then the player owns the entire set
+    for (var i = 0; i < board_location_array.length; i++) {
+      if (board_location_array[i].set_colour == board_location_array[player.position % 24].set_colour) {
+        board_location_array[i].payout = board_location_array[i].payout * 2; // In this case the rent is doubled
+      }
+    }
+    alert(`You have completed the ${board_location_array[player.position % 24].set_colour} set. All of the rents for these properties are doubled`);
+  }
+}
+
+// Function that checks if the player has passed GO
+function checkGo(player) {
+  if (Math.floor(player.position/24) != player.times_past_go) { // Checks if the player has gone further round the board than one full circuit
+    alert('You have passed Go! Collect £200')
+    player.money += 200; // If true then they get £200
+    player.times_past_go += 1;
+    updatePlayerMoney(player)
+  }
+}
+
+// Function that reloads the page when "Restart" button pressed
+function reload() {
   document.getElementById('reload').addEventListener("click",function(){
     location.reload();
   })
