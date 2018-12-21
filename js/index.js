@@ -1,6 +1,10 @@
 var turnCount = 0; // How many turns have passed
 var player_cycle_count = 0; // How many times a player has completed one circuit of the board
-players_array = []; // Array of player objects
+var players_array = []; // Array of player objects
+var trade_count = 0;
+var player_issuing_trade = [];
+var offer = [];
+var property_selection = 0;
 
 // Player constructor
 var Player = function(id,name,money,position,turn,idString,owned_properties,times_past_go){
@@ -45,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector(".player_1_area").style.backgroundColor = "rgba(255,0,0,0.2)"; // Reverts player 1 area to standard shade
       document.getElementById('player_turn').innerHTML = player2.name; // Displays current player turn name
       document.getElementById('startButton').style.backgroundColor = "blue"; // Dice roll button becomes colour of player
+      document.getElementById('trade').style.backgroundColor = "blue"; // Trade button becomes colour of player
       diceRoll(player1); // Determines dice roll for player
       move(player1); // Moves player to new spot on board and applies any location functions (e.g chance)
       checkGo(player1); // Check if player passed go on their move
@@ -54,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector(".player_2_area").style.backgroundColor = "rgba(0,0,255,0.2)";
       document.getElementById('player_turn').innerHTML = player3.name;
       document.getElementById('startButton').style.backgroundColor = "yellow";
+      document.getElementById('trade').style.backgroundColor = "yellow";
       diceRoll(player2);
       move(player2);
       checkGo(player2);
@@ -63,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector(".player_3_area").style.backgroundColor = "rgba(255,255,0,0.4)";
       document.getElementById('player_turn').innerHTML = player4.name;
       document.getElementById('startButton').style.backgroundColor = "green";
+      document.getElementById('trade').style.backgroundColor = "green";
       diceRoll(player3);
       move(player3);
       checkGo(player3);
@@ -72,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector(".player_4_area").style.backgroundColor = "rgba(0,255,0,0.2)";
       document.getElementById('player_turn').innerHTML = player1.name;
       document.getElementById('startButton').style.backgroundColor = "red";
+      document.getElementById('trade').style.backgroundColor = "red";
       diceRoll(player4);
       move(player4);
       checkGo(player4);
@@ -79,6 +87,69 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   })
 })
+
+function trade() {
+  var select = 0
+  for (var i = 0; i < players_array.length; i++) {
+    if (turnCount == 4) {
+      player_issuing_trade.push(players_array[0]);
+    }
+    if (players_array[i].id == (turnCount + 1)) {
+      player_issuing_trade.push(players_array[i]);
+    }
+  }
+  var element = document.getElementById('property_dropdown');
+  element.classList.remove('hidden');
+  document.querySelector("form").addEventListener("submit", function(e) {
+    e.preventDefault(); // prevent default action
+    select = this.querySelector("select");
+    if (select.value != 0) {
+      property_selection = select.value;
+      for (var i = 0; i < board_location_array.length; i++) {
+        if (board_location_array[i].value == property_selection && board_location_array[i].owner != 0 && board_location_array[i].owner < 5) {
+          offer[trade_count] = parseInt(prompt(`You have chosen ${board_location_array[i].name} which is worth £${board_location_array[i].cost}. How much would you like to offer for this property?`));
+          var acceptance = window.confirm(`${player_issuing_trade[trade_count].name} wants to buy ${board_location_array[i].name} for £${offer[trade_count]}, it is worth £${board_location_array[i].cost}. Will you sell to them?`);
+          if (acceptance == true && offer[trade_count] > 0) {
+            for (var j = 0; j < players_array.length; j++) {
+              if (board_location_array[i].owner == players_array[j].id) {
+                console.log(`${players_array[j].name} owns ${board_location_array[i].name}`);
+                console.log(`${player_issuing_trade[trade_count].name} wants to buy`);
+                players_array[j].money += offer[trade_count];
+                board_location_array[j].owner = 0;
+                var propColor = document.getElementsByClassName("property");
+                player_issuing_trade[trade_count].owned_properties.push(board_location_array[i].name);
+                propColor[i].classList.remove(players_array[j].idString + "_owned_properties"); // Changes colour of tile to match player colour
+                propColor[i].classList.add(player_issuing_trade[trade_count].idString + "_owned_properties");
+                for (var n = 0; n < players_array[j].owned_properties.length; n++) {
+                  if (players_array[j].owned_properties[n] == board_location_array[i].name) {
+                    players_array[j].owned_properties.splice((n),1);
+                    removeList(players_array[j]);
+                    makeList(players_array[j]);
+                    removeList(player_issuing_trade[trade_count]);
+                    makeList(player_issuing_trade[trade_count]);
+                    setCheck(player_issuing_trade[trade_count], board_location_array[i].set_colour);
+                  }
+                }
+              }
+            }
+            board_location_array[i].owner = player_issuing_trade[trade_count].id;
+            player_issuing_trade[trade_count].money -= offer[trade_count];
+            for (var k = 1; k < players_array.length + 1; k++) {
+              for (var l = 0; l < players_array.length; l++) {
+                updatePlayerMoney(players_array[l]);
+              }
+            }
+          }else if (acceptance == true) {
+            document.getElementById('property_purchase_box').innerHTML = 'You have entered an invalid offer.';
+          }
+        }
+      }
+      console.log(property_selection);
+      element.classList.add('hidden')
+      trade_count += 1;
+    }
+  })
+}
 
 // Function that randomly generates a number between 1 and 6
 function diceRoll(player) {
@@ -102,7 +173,7 @@ var positionData = function(name,id,value,owner,cost,payout,pieces,set_colour) {
 
 // Creating information for each location on the board and pushing them to board_location_array
 var board_location_array = [];
-var GO = new positionData("Go","go",0,4,0,0,0,"n/a");
+var GO = new positionData("Go","go",0,6,0,0,0,"n/a");
 board_location_array.push(GO);
 var OKR = new positionData("Old Kent Road","old_kent_road",1,0,60,15,0,"Brown");
 board_location_array.push(OKR);
@@ -126,7 +197,7 @@ var BS1 = new positionData("Bow Street","bow_street",10,0,180,45,0,"Orange");
 board_location_array.push(BS1);
 var MS = new positionData("Marlborough Street","marlborough_street",11,0,180,45,0,"Orange");
 board_location_array.push(MS);
-var BR = new positionData("Bottom Right","bottom_right",12,5,0,0,0,"n/a");
+var BR = new positionData("Bottom Right","bottom_right",12,6,0,0,0,"n/a");
 board_location_array.push(BR);
 var S = new positionData("Strand","strand",13,0,220,55,0,"Red");
 board_location_array.push(S);
@@ -231,9 +302,9 @@ function ownerCheck(player) {
   if (board_location_array[player.position % 24].owner == 0){ // If owner value is 0 property is unowned
     property_purchase_request(player); // Calls function that gives player the opportunity to purchase property
   }else if (board_location_array[player.position % 24].owner == player.id) { // Checks if the current player owns the property
-    alert('You already own this property');
+    document.getElementById('property_purchase_box').innerHTML = 'You already own this property';
   }else if (board_location_array[player.position % 24].owner != player.id && board_location_array[player.position % 24].owner <= players_array.length) { // Checks if property owned by another player
-    alert('You owe ' + players_array[(board_location_array[player.position % 24].owner -1)].name + ' ' + board_location_array[player.position % 24].payout + ' pounds.')
+    document.getElementById('property_purchase_box').innerHTML = 'You owe ' + players_array[(board_location_array[player.position % 24].owner -1)].name + ' ' + board_location_array[player.position % 24].payout + ' pounds.';
     payment(player , board_location_array[player.position % 24].owner); // Calls payment function
   }
 }
@@ -241,11 +312,18 @@ function ownerCheck(player) {
 // Function that gives player chance to buy property
 function property_purchase_request(player) {
   if (player.money >= board_location_array[player.position % 24].cost) { // Check to see if player has enough money to buy property
-    var property_purchase_result = window.confirm('Would you like to buy this property?'); // Confirmation box for player, "Ok" gives true output, "Cancel" gives false output
-    if (property_purchase_result == false) { // False means player doesn't buy property
-      alert('You did not buy ' + board_location_array[player.position % 24].name);
-    } else if (property_purchase_result == true) { // True means player purchases property
-      alert("You now own " + board_location_array[player.position % 24].name);
+    var property_purchase_result = document.getElementById('property_purchase_box').innerHTML = 'Would you like to buy this property?';
+    var yesbutton = document.getElementById('yes_button');
+    yesbutton.classList.remove('hidden');
+    var nobutton = document.getElementById('no_button');
+    nobutton.classList.remove('hidden');
+    nobutton.addEventListener("click",function() {
+      document.getElementById('property_purchase_box').innerHTML = 'You did not buy ' + board_location_array[player.position % 24].name;
+      yesbutton.classList.add('hidden')
+      nobutton.classList.add('hidden')
+    })
+    yesbutton.addEventListener('click',function(){
+      document.getElementById('property_purchase_box').innerHTML = "You now own " + board_location_array[player.position % 24].name;
       board_location_array[player.position % 24].owner = player.id;
       var propColor = document.getElementsByClassName("property");
       propColor[(player.position % 24)].classList.add(player.idString + "_owned_properties"); // Changes colour of tile to match player colour
@@ -255,10 +333,12 @@ function property_purchase_request(player) {
       player.owned_properties.sort();
       removeList(player);
       makeList(player);
-      setCheck(player);
-    }
-  }else { // If player cannot afford property
-    alert('You cannot afford ' + board_location_array[player.position % 24].name);
+      setCheck(player,board_location_array[player.position % 24].set_colour);
+      yesbutton.classList.add('hidden')
+      nobutton.classList.add('hidden')
+    })
+  }else {
+    document.getElementById('property_purchase_box').innerHTML = 'You cannot afford ' + board_location_array[player.position % 24].name;
   }
 }
 
@@ -306,14 +386,16 @@ function stopBackMusic() {
 
 // Function that generates owned property lists for each player
 function makeList(player) {
-  player_property_array = `${player.idString}_owned_properties` // Make the list
   var listElement = document.createElement('ul');
   listElement.classList.add(`list${player.id}`);
   document.getElementById(`p${player.id}Property`).appendChild(listElement); // Add it to the page
-  var numberOfListItems = player.owned_properties.length;  // Set up a loop that goes through the items in listItems one at a time
+  let unique = [...new Set(player.owned_properties)];
+  console.log(unique);
+  var numberOfListItems = unique.size;  // Set up a loop that goes through the items in listItems one at a time
   for (var i = 0; i < numberOfListItems; ++i) {
     var listItem = document.createElement('li'); // create an item for each one
-    listItem.innerHTML = player.owned_properties[i]; // Add the item text
+    listItem.innerHTML = unique[i]; // Add the item text
+    console.log(unique[i]);
     listElement.appendChild(listItem); // Add listItem to the listElement
   }
 }
@@ -321,18 +403,19 @@ function makeList(player) {
 // Function that checks if a player has run out of money
 function deathCheck(player) {
   if (player.money < 0) {
-    alert(`${player.name} has run out of money!`)
+    document.getElementById('game_information').innerHTML = `${player.name} has run out of money!`;
+    start.preventDefault
   }
 }
 
 // Function that shows instructions when the "Instructions" button is pressed
 function instructions() {
-alert("MONOPOLY is the game of buying, renting or selling Properties so profitably that players increase their wealth – the wealthiest becoming the eventual winner. Starting from the GO space, move your token around the board according to your roll of the dice. When you land on a Property that is not already owned by anyone else, you may buy it from the Bank. Players who own Properties collect rents from opponents stopping there. On player turn, roll the dice, if you land on an unowned property: Decide whether to buy the property. If you own all properties of the same colour, all properties become twice as valuable and the rent doubles. If you land on a chance card a card will be randomly selected and it's effects will be automatically applied. If you land on your opponents property, you will pay them the value of the rent for that tile.");
+document.getElementById('game_information').innerHTML = "SPARTOPOLY is the game of buying, renting or selling Properties so profitably that players increase their wealth – the wealthiest becoming the eventual winner. Starting from the GO space, move your token around the board according to your roll of the dice. When you land on a Property that is not already owned by anyone else, you may buy it from the Bank. Players who own Properties collect rents from opponents stopping there. On player turn, roll the dice, if you land on an unowned property: Decide whether to buy the property. If you own all properties of the same colour, all properties become twice as valuable and the rent doubles. If you land on a chance card a card will be randomly selected and it's effects will be automatically applied. If you land on your opponents property, you will pay them the value of the rent for that tile.";
 }
 
 // Function that tells the player which property they have landed on and gives relevant information
 function landAlert(position) {
-  alert(`You have landed on ${board_location_array[position].name} which costs £${board_location_array[position].cost} and will return £${board_location_array[position].payout} in rent.`)
+  document.getElementById('game_information').innerHTML = `You have landed on ${board_location_array[position].name} which costs £${board_location_array[position].cost} and will return £${board_location_array[position].payout} in rent.`
 }
 
 // Function that runs all functions that relate to player movement
@@ -445,7 +528,7 @@ function move(player) {
       changePieceValue(18);
       hide_character_icon();
       makeTokens(18);
-      alert("Free Parking! Pay nothing this turn");
+      document.getElementById('game_information').innerHTML = "Free Parking! Pay nothing this turn";
       playcarAudio();
     break;
     case 19:
@@ -484,14 +567,14 @@ function move(player) {
       makeTokens(0);
     break;
     default:
-    alert("Something went wrong. Don't move");
+    document.getElementById('game_information').innerHTML = "Something went wrong. Don't move";
   }
 }
 
 // Function that controls chance cards
 function chance(player) {
   var rand = Math.floor(Math.random()*chances.length) // Generates random number based on how many posibilities there are to get
-  alert(`${chances[rand]}`)
+  document.getElementById('game_information').innerHTML = `${chances[rand]}`;
   switch (rand) { // Switch case for each posibility
     case 0:
       if (player.position % 24 == 6 && turnCount % player.id == 0) {
@@ -545,24 +628,7 @@ function chance(player) {
         deathCheck(player);
       }
     break;
-    case 7: //Figure this out
-      if (player.position % 24 == 6) {
-        player2.money += 50;
-        player1.money -= 50;
-        document.getElementById('boot_money').innerHTML = player2.money;
-        document.getElementById('hat_money').innerHTML = player1.money;
-        playAudio();
-        deathCheck(player1);
-      }else if (player1.position % 24 == 6){
-        player1.money += 50;
-        player2.money -=50;
-        document.getElementById('hat_money').innerHTML = player1.money;
-        document.getElementById('boot_money').innerHTML = player2.money;
-        playAudio();
-        deathCheck(player2);
-      }
-    break;
-    case 8:
+    case 7:
       if (player.position % 24 == 6 && turnCount % player.id == 0) {
         player.money -= 10;
         updatePlayerMoney(player)
@@ -570,7 +636,7 @@ function chance(player) {
         deathCheck(player);
       }
     break;
-    case 9:
+    case 8:
       if (player.position % 24 == 6 && turnCount % player.id == 0) {
         player.money -= 300;
         updatePlayerMoney(player)
@@ -582,43 +648,43 @@ function chance(player) {
   }
 }
 
-var chances = ["Chance card! Your neighbour complains that your new extension obstructs light to their property, pay £60 in reparations","Chance card! You come in second place in a beauty contest, win £1!","Chance card! Bank error in your favour, gain £200!","Chance card! Tax refund, claim £20","Chance card! You inherit £100 from a distant relative's death", "Chance card! You mistakenly invest in a Nigerian prince, lose £100","Chance card! Hospital fees, pay £50","Chance card! It's your birthday! Take £50 from the other player!","Chance card! Parking fine pay £10","Chance card! All of your money was invested in the Leyman Brothers, you lose £300"];
+var chances = ["Chance card! Your neighbour complains that your new extension obstructs light to their property, pay £60 in reparations","Chance card! You come in second place in a beauty contest, win £1!","Chance card! Bank error in your favour, gain £200!","Chance card! Tax refund, claim £20","Chance card! You inherit £100 from a distant relative's death", "Chance card! You mistakenly invest in a Nigerian prince, lose £100","Chance card! Hospital fees, pay £50","Chance card! Parking fine pay £10","Chance card! All of your money was invested in the Leyman Brothers, you lose £300"];
 
 
 // Function that occurs when a player lands on the breakdown tile
 function breakdown(player) {
-  alert("Your car breaks down, pay £30 in repairs")
+  document.getElementById('game_information').innerHTML = "Your car breaks down, pay £30 in repairs";
   player.money -= 30;
   updatePlayerMoney(player)
   deathCheck(player);
 }
 
 // Function that checks if all properties are owned by the same player, and if so, doubles their rental value
-function setCheck(player) {
+function setCheck(player,colour) {
   var total_in_set = 0;
   var owned_in_set = 0;
   for (var i = 0; i < board_location_array.length; i++) {
-    if (board_location_array[i].set_colour == board_location_array[player.position % 24].set_colour) {
+    if (board_location_array[i].set_colour == colour) {
       total_in_set += 1; // Finds how many properties are in the set
     }
-    if (board_location_array[i].set_colour == board_location_array[player.position % 24].set_colour && board_location_array[i].owner == player.id) {
+    if (board_location_array[i].set_colour == colour && board_location_array[i].owner == player.id) {
       owned_in_set += 1; // Finds out how many properties the current player owns
     }
   }
   if (owned_in_set == total_in_set) { // If equal then the player owns the entire set
     for (var i = 0; i < board_location_array.length; i++) {
-      if (board_location_array[i].set_colour == board_location_array[player.position % 24].set_colour) {
+      if (board_location_array[i].set_colour == colour) {
         board_location_array[i].payout = board_location_array[i].payout * 2; // In this case the rent is doubled
       }
     }
-    alert(`You have completed the ${board_location_array[player.position % 24].set_colour} set. All of the rents for these properties are doubled`);
+    document.getElementById('property_purchase_box').innerHTML = `You have completed the ${board_location_array[player.position % 24].set_colour} set. All of the rents for these properties are doubled`;
   }
 }
 
 // Function that checks if the player has passed GO
 function checkGo(player) {
   if (Math.floor(player.position/24) != player.times_past_go) { // Checks if the player has gone further round the board than one full circuit
-    alert('You have passed Go! Collect £200')
+    document.getElementById('go_passing_text').innerHTML = 'You have passed Go! Collect £200';
     player.money += 200; // If true then they get £200
     player.times_past_go += 1;
     updatePlayerMoney(player)

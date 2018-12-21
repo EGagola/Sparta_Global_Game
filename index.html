@@ -144,8 +144,44 @@
               </div>
               <div class="mid_bot">
                 <div class="board_mid_mid">
-                  <h1>MONOPOLY</h1>
-                  <img id="dollar" src="http://www.stickpng.com/assets/thumbs/593007733919fe0ee3614da3.png" alt="man">
+                  <h1>SPARTOPOLY</h1>
+                  <div class="text_box">
+                    <p id="go_passing_text"></p>
+                    <p id="game_information"></p>
+                    <p id="property_purchase_box"></p>
+                    <button class="hidden" id="yes_button" type="button" name="yes">Yes</button>
+                    <button class="hidden" id="no_button" type="button" name="no">No</button>
+                    <br><br>
+                  </div>
+                  <div id="property_dropdown" class="hidden" title="Select Property">
+                    <form>
+                        <select>
+                            <option value="0">Select Property</option>
+                            <option value="1">Old Kent Road</option>
+                            <option value="2">Whitechapel Road</option>
+                            <option value="3">Angel Islington</option>
+                            <option value="4">Euston Road</option>
+                            <option value="5">Pentonville Road</option>
+                            <option value="7">Pall Mall</option>
+                            <option value="8">Whitehall</option>
+                            <option value="9">Northumberland Avenue</option>
+                            <option value="10">Bow Street</option>
+                            <option value="11">Marlborough Street</option>
+                            <option value="13">Strand</option>
+                            <option value="14">Fleet Street</option>
+                            <option value="15">Trafalgar Square</option>
+                            <option value="16">Leicester Square</option>
+                            <option value="17">Picadilly</option>
+                            <option value="19">Regent Street</option>
+                            <option value="20">Oxford Street</option>
+                            <option value="21">Bond Street</option>
+                            <option value="22">Park Lane</option>
+                            <option value="23">Mayfair</option>
+                        </select>
+                        <input type="submit" value="Submit" class="myButton">
+                    </form>
+                  </div>
+                  <button id="trade" type="button" name="button" onclick="trade()">Trade</button>
                 </div>
                 <div class="board_bottom_row">
                   <div class="board_bottom_mid">

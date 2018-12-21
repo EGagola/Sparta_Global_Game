@@ -209,7 +209,6 @@ img {
   padding: 2px;
 
 }
-
 .board_mid_mid{
   width: 420px;
   height: 420px;
@@ -223,10 +222,12 @@ img {
   width: 200px;
   align-self: center;
 }
+
 .mid_bot{
   display: flex;
   flex-direction: column;
 }
+
 .board_mid_right{
   width: 140px;
   height: 420px;
@@ -239,6 +240,7 @@ img {
   border-left-width: 15px;
   padding: 2px;
 }
+
 #whitehall{
   width: 100%;
   height: 20%;
@@ -247,29 +249,29 @@ img {
   padding: 2px;
 
 }
+
 #northumberland_avenue{
   width: 100%;
   height: 20%;
   border: 1px solid orchid;
   border-left-width: 15px;
   padding: 2px;
-
 }
+
 #bow_street{
   width: 100%;
   height: 20%;
   border: 1px solid orange;
   border-left-width: 15px;
   padding: 2px;
-
 }
+
 #marlborough_street{
   width: 100%;
   height: 20%;
   border: 1px solid orange;
   border-left-width: 15px;
   padding: 2px;
-
 }
 
 .board_bottom_row{
@@ -278,33 +280,36 @@ img {
   width: 100%;
   height: 140px;
 }
+
 .board_bottom_left{
   width: 140px;
   height: 140px;
   border: 5px solid black;
 }
+
 .board_bottom_mid{
   width: 100%;
   height: 140px;
   display: flex;
   flex-direction: row-reverse;
 }
+
 #strand{
   width: 20%;
   height: 140px;
   border: 1px solid red;
   border-top-width: 15px;
   padding: 2px;
-
 }
+
 #fleet_street{
   width: 20%;
   height: 140px;
   border: 1px solid red;
   border-top-width: 15px;
   padding: 2px;
-
 }
+
 #trafalgar_square{
   width: 20%;
   height: 140px;
@@ -346,7 +351,7 @@ img {
 }
 #startButton{
   background-color: red;
-  margin-top: 10px;
+  margin-top: 30px;
   color: white;
   border-radius: 15px;
   height: 40px;
@@ -355,16 +360,21 @@ img {
 }
 #instructions{
 position: absolute;
-left: 494px;
+left: 600px;
 top: 800px;
 font-size: 15pt;
+background-color: white;
+border-radius: 10px;
 }
 #reload{
   position: absolute;
   top: 800px;
-  right: 494px;
+  right: 600px;
   font-size: 15pt;
+  background-color: white;
+  border-radius: 10px;
 }
+
 .right_col{
   display: flex;
   flex-direction: column;
@@ -397,11 +407,30 @@ font-size: 20pt;
 .player_4_area {
   border: 1px solid black;
   height: 50%;
-  background-color: rgba(0,255,0,0.4)
+  background-color: rgba(0,130,0,0.4)
 }
 .iron_owned_properties {
 background-color: rgba(255,255,0,0.4);
 }
 .gent_owned_properties {
 background-color: rgba(0,255,0,0.4);
+}
+#trade {
+  background-color: red;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+#property_purchase_box {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#game_information {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#go_passing_text {
+  padding-left: 10px;
+  padding-right: 10px;
 }
